@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace EmailHomeworkSystem.Properties {
+namespace EmailHomeworkSystem {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]

@@ -8,10 +8,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace _190326_邮箱作业收发系统 {
-    public partial class Form1 : Form {
-        public Form1() {
+namespace EmailHomeworkSystem {
+    public partial class FormSettings : Form {
+        public FormSettings() {
             InitializeComponent();
+        }
+
+        private void FormSettings_Load(object sender, EventArgs e) {
+
         }
     }
 }

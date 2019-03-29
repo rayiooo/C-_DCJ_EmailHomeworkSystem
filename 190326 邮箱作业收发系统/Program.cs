@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace _190326_邮箱作业收发系统 {
+namespace EmailHomeworkSystem {
     static class Program {
         /// <summary>
         /// 应用程序的主入口点。
@@ -13,7 +13,7 @@ namespace _190326_邮箱作业收发系统 {
         static void Main() {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Application.Run(new FormMain());
         }
     }
 }
