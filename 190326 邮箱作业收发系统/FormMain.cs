@@ -12,11 +12,29 @@ namespace EmailHomeworkSystem {
         public FormMain() {
             InitializeComponent();
             InitializeController();
+            InitializeSettings();
         }
 
+        //*************************初始化******************************
+
+        /// <summary>
+        /// 初始化控制器们
+        /// </summary>
         private void InitializeController() {
-            this.treeViewController = new TreeViewController(this);
+            treeViewController = new TreeViewController(this);
         }
+        /// <summary>
+        /// 初始化已保存的配置
+        /// </summary>
+        private void InitializeSettings() {
+            if(Settings.Default.FolderPath != "") {
+                treeViewController.Import(Settings.Default.FolderPath);
+            }
+        }
+
+
+
+        //***************************界面事件****************************
 
         private void 选项ToolStripMenuItem_Click(object sender, EventArgs e) {
             Form settingsForm = new FormSettings();
@@ -26,7 +44,9 @@ namespace EmailHomeworkSystem {
         private void 导入ToolStripMenuItem_Click(object sender, EventArgs e) {
             if(this.folderBrowserDialog.ShowDialog() == DialogResult.OK) {
                 string folderPath = folderBrowserDialog.SelectedPath;
-                this.treeViewController.Import(folderPath);
+                treeViewController.Import(folderPath);
+                Settings.Default.FolderPath = folderPath;
+                Settings.Default.Save();
             }
         }
     }
