@@ -23,6 +23,8 @@
         /// 使用代码编辑器修改此方法的内容。
         /// </summary>
         private void InitializeComponent() {
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
             this.mainMenuStrip = new System.Windows.Forms.MenuStrip();
             this.文件ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.打开ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -33,6 +35,7 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.treeView = new System.Windows.Forms.TreeView();
             this.listView = new System.Windows.Forms.ListView();
+            this.fileIconImageList = new System.Windows.Forms.ImageList(this.components);
             this.mainMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -117,11 +120,23 @@
             // listView
             // 
             this.listView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listView.Font = new System.Drawing.Font("宋体", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.listView.LargeImageList = this.fileIconImageList;
             this.listView.Location = new System.Drawing.Point(0, 0);
+            this.listView.MultiSelect = false;
             this.listView.Name = "listView";
             this.listView.Size = new System.Drawing.Size(731, 587);
+            this.listView.SmallImageList = this.fileIconImageList;
             this.listView.TabIndex = 7;
             this.listView.UseCompatibleStateImageBehavior = false;
+            // 
+            // fileIconImageList
+            // 
+            this.fileIconImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("fileIconImageList.ImageStream")));
+            this.fileIconImageList.TransparentColor = System.Drawing.Color.Transparent;
+            this.fileIconImageList.Images.SetKeyName(0, "folder.png");
+            this.fileIconImageList.Images.SetKeyName(1, "cpp.png");
+            this.fileIconImageList.Images.SetKeyName(2, "h.png");
             // 
             // FormMain
             // 
@@ -153,7 +168,8 @@
         private System.Windows.Forms.ToolStripMenuItem 打开ToolStripMenuItem;
         private System.Windows.Forms.SplitContainer splitContainer1;
         public System.Windows.Forms.TreeView treeView;
-        private System.Windows.Forms.ListView listView;
+        public System.Windows.Forms.ListView listView;
+        public System.Windows.Forms.ImageList fileIconImageList;
     }
 }
 

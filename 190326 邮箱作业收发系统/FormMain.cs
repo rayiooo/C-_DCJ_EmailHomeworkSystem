@@ -7,6 +7,7 @@ using System.Windows.Forms;
 
 namespace EmailHomeworkSystem {
     public partial class FormMain : Form {
+        private ListViewController listViewController;
         private TreeViewController treeViewController;
 
         public FormMain() {
@@ -15,13 +16,15 @@ namespace EmailHomeworkSystem {
             InitializeSettings();
         }
 
-        //*************************初始化******************************
+        //**************************初始化******************************
 
         /// <summary>
         /// 初始化控制器们
         /// </summary>
         private void InitializeController() {
             treeViewController = new TreeViewController(this);
+            listViewController = new ListViewController(this);
+            listViewController.test(); //test
         }
         /// <summary>
         /// 初始化已保存的配置
