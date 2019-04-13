@@ -67,6 +67,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseLib\Base.cs" />
+    <Compile Include="BaseLib\Log.cs" />
+    <Compile Include="Controller\FolderController.cs" />
     <Compile Include="Controller\ListViewController.cs" />
     <Compile Include="Controller\TreeViewController.cs" />
     <Compile Include="FormSettings.cs">

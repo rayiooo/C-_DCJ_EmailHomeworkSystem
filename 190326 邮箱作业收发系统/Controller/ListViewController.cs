@@ -1,21 +1,36 @@
-﻿using System.Windows.Forms;
+﻿using EmailHomeworkSystem.BaseLib;
+using System.IO;
+using System.Windows.Forms;
 
 namespace EmailHomeworkSystem.Controller {
-    class ListViewController {
+    public class ListViewController {
+        private string folderPath;
         private FormMain form;
 
         public ListViewController(FormMain form) {
             this.form = form;
         }
-        public void test() {
-            form.listView.BeginUpdate();
-            for(int i=0; i<10; i++) {
-                ListViewItem item = new ListViewItem();
-                item.ImageIndex = 0;
-                item.Text = "学生" + i;
-                form.listView.Items.Add(item);
-            }
 
+        /// <summary>
+        /// 将路径下的文件和文件夹显示在listView中
+        /// </summary>
+        /// <param name="folderPath">目录全名</param>
+        public void Import(string folder) {
+            this.folderPath = folder;
+            Log.D(string.Format("当前目录：{0}", folder));
+            form.listView.BeginUpdate();
+            form.listView.Items.Clear();
+            DirectoryInfo info = new DirectoryInfo(folder);
+            if (info.Exists) {
+                foreach (DirectoryInfo dir in info.GetDirectories()) {
+                    ListViewItem item = new ListViewItem(dir.Name, 0);
+                    form.listView.Items.Add(item);
+                }
+                foreach(FileInfo dir in info.GetFiles()) {
+                    ListViewItem item = new ListViewItem(dir.Name, 1);
+                    form.listView.Items.Add(item);
+                }
+            }
             form.listView.EndUpdate();
         }
     }

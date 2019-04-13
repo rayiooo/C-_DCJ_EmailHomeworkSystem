@@ -38,6 +38,9 @@
             this.listView = new System.Windows.Forms.ListView();
             this.fileIconImageList = new System.Windows.Forms.ImageList(this.components);
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.folderPathFlow = new System.Windows.Forms.FlowLayoutPanel();
             this.btnFolderRefresh = new System.Windows.Forms.PictureBox();
             this.btnFolderForward = new System.Windows.Forms.PictureBox();
             this.btnFolderBack = new System.Windows.Forms.PictureBox();
@@ -48,6 +51,8 @@
             this.splitContainer1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnFolderRefresh)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnFolderForward)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnFolderBack)).BeginInit();
@@ -137,7 +142,7 @@
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 2;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 52F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 53F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(888, 642);
             this.tableLayoutPanel1.TabIndex = 0;
@@ -147,13 +152,14 @@
             this.listView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listView.Font = new System.Drawing.Font("宋体", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.listView.LargeImageList = this.fileIconImageList;
-            this.listView.Location = new System.Drawing.Point(3, 55);
+            this.listView.Location = new System.Drawing.Point(3, 56);
             this.listView.MultiSelect = false;
             this.listView.Name = "listView";
-            this.listView.Size = new System.Drawing.Size(882, 584);
+            this.listView.Size = new System.Drawing.Size(882, 583);
             this.listView.SmallImageList = this.fileIconImageList;
             this.listView.TabIndex = 25;
             this.listView.UseCompatibleStateImageBehavior = false;
+            this.listView.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listView_MouseDoubleClick);
             // 
             // fileIconImageList
             // 
@@ -172,16 +178,52 @@
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel2.Controls.Add(this.pictureBox2, 5, 0);
+            this.tableLayoutPanel2.Controls.Add(this.pictureBox1, 4, 0);
+            this.tableLayoutPanel2.Controls.Add(this.folderPathFlow, 3, 0);
             this.tableLayoutPanel2.Controls.Add(this.btnFolderRefresh, 2, 0);
             this.tableLayoutPanel2.Controls.Add(this.btnFolderForward, 1, 0);
             this.tableLayoutPanel2.Controls.Add(this.btnFolderBack, 0, 0);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel2.GrowStyle = System.Windows.Forms.TableLayoutPanelGrowStyle.AddColumns;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 3);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(882, 46);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(882, 47);
             this.tableLayoutPanel2.TabIndex = 24;
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.BackgroundImage = global::EmailHomeworkSystem.Properties.Resources.folderforward;
+            this.pictureBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.pictureBox2.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pictureBox2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureBox2.Location = new System.Drawing.Point(838, 3);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(41, 41);
+            this.pictureBox2.TabIndex = 7;
+            this.pictureBox2.TabStop = false;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackgroundImage = global::EmailHomeworkSystem.Properties.Resources.folderforward;
+            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.pictureBox1.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureBox1.Location = new System.Drawing.Point(791, 3);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(41, 41);
+            this.pictureBox1.TabIndex = 6;
+            this.pictureBox1.TabStop = false;
+            // 
+            // folderPathFlow
+            // 
+            this.folderPathFlow.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.folderPathFlow.Location = new System.Drawing.Point(144, 3);
+            this.folderPathFlow.Name = "folderPathFlow";
+            this.folderPathFlow.Size = new System.Drawing.Size(641, 41);
+            this.folderPathFlow.TabIndex = 5;
             // 
             // btnFolderRefresh
             // 
@@ -191,7 +233,7 @@
             this.btnFolderRefresh.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnFolderRefresh.Location = new System.Drawing.Point(97, 3);
             this.btnFolderRefresh.Name = "btnFolderRefresh";
-            this.btnFolderRefresh.Size = new System.Drawing.Size(41, 40);
+            this.btnFolderRefresh.Size = new System.Drawing.Size(41, 41);
             this.btnFolderRefresh.TabIndex = 2;
             this.btnFolderRefresh.TabStop = false;
             this.btnFolderRefresh.MouseLeave += new System.EventHandler(this.btnFolderRefresh_MouseLeave);
@@ -205,7 +247,7 @@
             this.btnFolderForward.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnFolderForward.Location = new System.Drawing.Point(50, 3);
             this.btnFolderForward.Name = "btnFolderForward";
-            this.btnFolderForward.Size = new System.Drawing.Size(41, 40);
+            this.btnFolderForward.Size = new System.Drawing.Size(41, 41);
             this.btnFolderForward.TabIndex = 1;
             this.btnFolderForward.TabStop = false;
             this.btnFolderForward.MouseLeave += new System.EventHandler(this.btnFolderForward_MouseLeave);
@@ -218,13 +260,15 @@
             this.btnFolderBack.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.btnFolderBack.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnFolderBack.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnFolderBack.Enabled = false;
             this.btnFolderBack.Location = new System.Drawing.Point(3, 3);
             this.btnFolderBack.Name = "btnFolderBack";
-            this.btnFolderBack.Size = new System.Drawing.Size(41, 40);
+            this.btnFolderBack.Size = new System.Drawing.Size(41, 41);
             this.btnFolderBack.TabIndex = 0;
             this.btnFolderBack.TabStop = false;
             this.btnFolderBack.MouseLeave += new System.EventHandler(this.btnFolderBack_MouseLeave);
             this.btnFolderBack.MouseMove += new System.Windows.Forms.MouseEventHandler(this.btnFolderBack_MouseMove);
+            this.btnFolderBack.MouseUp += new System.Windows.Forms.MouseEventHandler(this.btnFolderBack_MouseUp);
             // 
             // FormMain
             // 
@@ -243,6 +287,8 @@
             this.splitContainer1.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnFolderRefresh)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnFolderForward)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnFolderBack)).EndInit();
@@ -265,9 +311,12 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         public System.Windows.Forms.ListView listView;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
-        private System.Windows.Forms.PictureBox btnFolderRefresh;
-        private System.Windows.Forms.PictureBox btnFolderForward;
-        private System.Windows.Forms.PictureBox btnFolderBack;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.FlowLayoutPanel folderPathFlow;
+        private System.Windows.Forms.PictureBox pictureBox2;
+        public System.Windows.Forms.PictureBox btnFolderRefresh;
+        public System.Windows.Forms.PictureBox btnFolderForward;
+        public System.Windows.Forms.PictureBox btnFolderBack;
     }
 }
 

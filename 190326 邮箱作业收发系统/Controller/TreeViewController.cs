@@ -2,7 +2,7 @@
 using System.Windows.Forms;
 
 namespace EmailHomeworkSystem.Controller {
-    class TreeViewController {
+    public class TreeViewController {
         private string folderPath;
         private FormMain form;
 
