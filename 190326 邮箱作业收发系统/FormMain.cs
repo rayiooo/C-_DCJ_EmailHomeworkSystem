@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using EmailHomeworkSystem.Controller;
-using System.Data;
 using System.Windows.Forms;
+using EmailHomeworkSystem.Properties;
+using System.Drawing;
 
 namespace EmailHomeworkSystem {
     public partial class FormMain : Form {
@@ -51,6 +50,42 @@ namespace EmailHomeworkSystem {
                 Settings.Default.FolderPath = folderPath;
                 Settings.Default.Save();
             }
+        }
+
+        private void btnFolderBack_MouseMove(object sender, MouseEventArgs e) {
+            if(btnFolderBack.BackgroundImage != null)
+                btnFolderBack.BackgroundImage.Dispose();
+            btnFolderBack.BackgroundImage = Resources.folderback_press;
+        }
+
+        private void btnFolderBack_MouseLeave(object sender, EventArgs e) {
+            if (btnFolderBack.BackgroundImage != null)
+                btnFolderBack.BackgroundImage.Dispose();
+            btnFolderBack.BackgroundImage = Resources.folderback;
+        }
+
+        private void btnFolderForward_MouseMove(object sender, MouseEventArgs e) {
+            if (btnFolderForward.BackgroundImage != null)
+                btnFolderForward.BackgroundImage.Dispose();
+            btnFolderForward.BackgroundImage = Resources.folderforward_press;
+        }
+
+        private void btnFolderForward_MouseLeave(object sender, EventArgs e) {
+            if (btnFolderForward.BackgroundImage != null)
+                btnFolderForward.BackgroundImage.Dispose();
+            btnFolderForward.BackgroundImage = Resources.folderforward;
+        }
+
+        private void btnFolderRefresh_MouseMove(object sender, MouseEventArgs e) {
+            if (btnFolderRefresh.BackgroundImage != null)
+                btnFolderRefresh.BackgroundImage.Dispose();
+            btnFolderRefresh.BackgroundImage = Resources.folderrefresh_press;
+        }
+
+        private void btnFolderRefresh_MouseLeave(object sender, EventArgs e) {
+            if (btnFolderRefresh.BackgroundImage != null)
+                btnFolderRefresh.BackgroundImage.Dispose();
+            btnFolderRefresh.BackgroundImage = Resources.folderrefresh;
         }
     }
 }
