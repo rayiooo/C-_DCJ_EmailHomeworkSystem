@@ -63,26 +63,6 @@ namespace EmailHomeworkSystem.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap cpp {
-            get {
-                object obj = ResourceManager.GetObject("cpp", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
-        /// </summary>
-        internal static System.Drawing.Bitmap folder {
-            get {
-                object obj = ResourceManager.GetObject("folder", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
-        /// </summary>
         internal static System.Drawing.Bitmap folderback {
             get {
                 object obj = ResourceManager.GetObject("folderback", resourceCulture);
@@ -136,16 +116,6 @@ namespace EmailHomeworkSystem.Properties {
         internal static System.Drawing.Bitmap folderrefresh_press {
             get {
                 object obj = ResourceManager.GetObject("folderrefresh_press", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
-        /// </summary>
-        internal static System.Drawing.Bitmap h {
-            get {
-                object obj = ResourceManager.GetObject("h", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -26,8 +26,21 @@ namespace EmailHomeworkSystem.Controller {
                     ListViewItem item = new ListViewItem(dir.Name, 0);
                     form.listView.Items.Add(item);
                 }
-                foreach(FileInfo dir in info.GetFiles()) {
-                    ListViewItem item = new ListViewItem(dir.Name, 1);
+                foreach (FileInfo dir in info.GetFiles()) {
+                    ListViewItem item = new ListViewItem(dir.Name);
+                    if (dir.Name.EndsWith(".cpp")) {
+                        item.ImageIndex = 1;
+                    } else if (dir.Name.EndsWith(".h")) {
+                        item.ImageIndex = 2;
+                    } else if (dir.Name.EndsWith(".rar")) {
+                        item.ImageIndex = 4;
+                    } else if (dir.Name.EndsWith(".txt")) {
+                        item.ImageIndex = 5;
+                    } else if (dir.Name.EndsWith(".zip")) {
+                        item.ImageIndex = 6;
+                    } else {
+                        item.ImageIndex = 3;
+                    }
                     form.listView.Items.Add(item);
                 }
             }

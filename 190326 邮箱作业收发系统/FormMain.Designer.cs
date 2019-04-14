@@ -27,7 +27,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
             this.mainMenuStrip = new System.Windows.Forms.MenuStrip();
             this.文件ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.打开ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.导入ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.编辑ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.设置ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.选项ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -74,17 +74,17 @@
             // 文件ToolStripMenuItem
             // 
             this.文件ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.打开ToolStripMenuItem});
+            this.导入ToolStripMenuItem});
             this.文件ToolStripMenuItem.Name = "文件ToolStripMenuItem";
             this.文件ToolStripMenuItem.Size = new System.Drawing.Size(51, 24);
             this.文件ToolStripMenuItem.Text = "文件";
             // 
-            // 打开ToolStripMenuItem
+            // 导入ToolStripMenuItem
             // 
-            this.打开ToolStripMenuItem.Name = "打开ToolStripMenuItem";
-            this.打开ToolStripMenuItem.Size = new System.Drawing.Size(114, 26);
-            this.打开ToolStripMenuItem.Text = "导入";
-            this.打开ToolStripMenuItem.Click += new System.EventHandler(this.导入ToolStripMenuItem_Click);
+            this.导入ToolStripMenuItem.Name = "导入ToolStripMenuItem";
+            this.导入ToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.导入ToolStripMenuItem.Text = "导入";
+            this.导入ToolStripMenuItem.Click += new System.EventHandler(this.导入ToolStripMenuItem_Click);
             // 
             // 编辑ToolStripMenuItem
             // 
@@ -103,7 +103,7 @@
             // 选项ToolStripMenuItem
             // 
             this.选项ToolStripMenuItem.Name = "选项ToolStripMenuItem";
-            this.选项ToolStripMenuItem.Size = new System.Drawing.Size(114, 26);
+            this.选项ToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
             this.选项ToolStripMenuItem.Text = "选项";
             this.选项ToolStripMenuItem.Click += new System.EventHandler(this.选项ToolStripMenuItem_Click);
             // 
@@ -166,8 +166,12 @@
             this.fileIconImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("fileIconImageList.ImageStream")));
             this.fileIconImageList.TransparentColor = System.Drawing.Color.Transparent;
             this.fileIconImageList.Images.SetKeyName(0, "folder.png");
-            this.fileIconImageList.Images.SetKeyName(1, "cpp.png");
-            this.fileIconImageList.Images.SetKeyName(2, "h.png");
+            this.fileIconImageList.Images.SetKeyName(1, "icon_cpp.png");
+            this.fileIconImageList.Images.SetKeyName(2, "icon_h.png");
+            this.fileIconImageList.Images.SetKeyName(3, "icon_nani.png");
+            this.fileIconImageList.Images.SetKeyName(4, "icon_rar.png");
+            this.fileIconImageList.Images.SetKeyName(5, "icon_txt.png");
+            this.fileIconImageList.Images.SetKeyName(6, "icon_zip.png");
             // 
             // tableLayoutPanel2
             // 
@@ -304,7 +308,7 @@
         private System.Windows.Forms.ToolStripMenuItem 设置ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 选项ToolStripMenuItem;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog;
-        private System.Windows.Forms.ToolStripMenuItem 打开ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 导入ToolStripMenuItem;
         private System.Windows.Forms.SplitContainer splitContainer1;
         public System.Windows.Forms.TreeView treeView;
         public System.Windows.Forms.ImageList fileIconImageList;

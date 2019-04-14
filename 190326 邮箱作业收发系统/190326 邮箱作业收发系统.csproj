@@ -127,7 +127,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\cpp.png" />
+    <None Include="Resources\icon_cpp.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\folderback.png" />
@@ -151,7 +151,13 @@
     <None Include="Resources\folderrefresh_press.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\h.png" />
+    <None Include="Resources\icon_h.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\icon_nani.png" />
+    <Content Include="Resources\icon_rar.png" />
+    <Content Include="Resources\icon_txt.png" />
+    <Content Include="Resources\icon_zip.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\System.Data.SQLite.Core.1.0.110.0\build\net46\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.110.0\build\net46\System.Data.SQLite.Core.targets')" />
