@@ -8,7 +8,7 @@ namespace EmailHomeworkSystem.Controller {
     /// </summary>
     public class FolderController {
         private FormMain _form;
-        private string _relativePath;
+        private string _relativePath; //相对根目录的路径
         private string _root;
         public string root {
             get { return _root; }
@@ -17,6 +17,10 @@ namespace EmailHomeworkSystem.Controller {
 
         public FolderController(FormMain form) {
             _form = form;
+        }
+
+        public string GetChildPathFull(string childName) {
+            return string.Format("{0}{1}\\{2}", _root, _relativePath, childName);
         }
 
         /// <summary>

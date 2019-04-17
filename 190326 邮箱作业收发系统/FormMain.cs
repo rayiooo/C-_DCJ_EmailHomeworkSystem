@@ -52,6 +52,9 @@ namespace EmailHomeworkSystem {
                 } else {
                     //TODO: 如果是文件
 
+                    FormCodeView formCV = new FormCodeView();
+                    formCV.OpenFile(folderController.GetChildPathFull(item.Text));
+                    formCV.Show(this);
                 }
             }
         }

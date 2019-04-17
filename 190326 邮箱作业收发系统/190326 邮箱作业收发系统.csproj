@@ -72,6 +72,12 @@
     <Compile Include="Controller\FolderController.cs" />
     <Compile Include="Controller\ListViewController.cs" />
     <Compile Include="Controller\TreeViewController.cs" />
+    <Compile Include="FormCodeView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormCodeView.Designer.cs">
+      <DependentUpon>FormCodeView.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormSettings.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -92,6 +98,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="SQLite\SQLiteHelper.cs" />
+    <EmbeddedResource Include="FormCodeView.resx">
+      <DependentUpon>FormCodeView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormMain.resx">
       <DependentUpon>FormMain.cs</DependentUpon>
     </EmbeddedResource>
