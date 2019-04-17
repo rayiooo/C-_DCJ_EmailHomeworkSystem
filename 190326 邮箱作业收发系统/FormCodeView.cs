@@ -1,6 +1,7 @@
 ﻿using ICSharpCode.TextEditor.Document;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
@@ -15,8 +16,6 @@ namespace EmailHomeworkSystem {
         //----------------------------初始化操作----------------------------
 
         private void InitializeUI() {
-            this.splitContainer1.SplitterDistance = (int)(splitContainer1.Height * 0.1667);
-
             textEditor.Document.HighlightingStrategy = HighlightingStrategyFactory.CreateHighlightingStrategy("C++.NET");
             textEditor.Encoding = Encoding.Default;
             textEditor.Document.FoldingManager.FoldingStrategy = new CppFolding();
@@ -25,10 +24,33 @@ namespace EmailHomeworkSystem {
         //----------------------------功能操作----------------------------
 
         public void OpenFile(string filePath) {
-            textEditor.Text = File.ReadAllText(filePath, System.Text.Encoding.Default);
+            this.Text = filePath;
+            textEditor.Text = File.ReadAllText(filePath, Encoding.Default);
+            //textEditor.Text = FormatCode(textEditor.Text); //格式化代码
         }
 
         //----------------------------界面事件----------------------------
+
+        private void btnSave_MouseMove(object sender, MouseEventArgs e) {
+            btnSave.BackColor = Color.LightBlue;
+        }
+        private void btnSave_MouseLeave(object sender, EventArgs e) {
+            btnSave.BackColor = Color.Transparent;
+        }
+        private void btnSave_MouseDown(object sender, MouseEventArgs e) {
+            btnSave.BackColor = Color.SkyBlue;
+        }
+
+        private void btnRun_MouseMove(object sender, MouseEventArgs e) {
+            btnRun.BackColor = Color.LightBlue;
+        }
+        private void btnRun_MouseLeave(object sender, EventArgs e) {
+            btnRun.BackColor = Color.Transparent;
+        }
+        private void btnRun_MouseDown(object sender, MouseEventArgs e) {
+            btnRun.BackColor = Color.SkyBlue;
+        }
+
         private void textEditor_TextChanged(object sender, System.EventArgs e) {
             textEditor.Document.FoldingManager.UpdateFoldings(null, null);
             //if (textEditor.Text.Length <= oldJScodeLength) return;
@@ -63,35 +85,42 @@ namespace EmailHomeworkSystem {
 
             //}
         }
-        /// <summary>
-        /// 格式化JS代码
-        /// </summary>
-        /// <param name="code"></param>
-        /// <returns></returns>
-        //public static string FormatJSCode(string code) {
-        //    //去除空白行
-        //    code = RemoveEmptyLines(code);
-        //    StringBuilder sb = new StringBuilder();
-        //    int count = 2;
-        //    int times = 0;
-        //    string[] lines = code.Split('\n');
-        //    foreach (var line in lines) {
-        //        if (line.TrimStart().StartsWith("{") || line.TrimEnd().EndsWith("{")) {
-        //            sb.Append(Indent(count * times) + line.TrimStart() + "\r\n");
-        //            times++;
 
-        //        } else if (line.TrimStart().StartsWith("}")) {
-        //            times--;
-        //            if (times <= 0) {
-        //                times = 0;
-        //            }
-        //            sb.Append(Indent(count * times) + line.TrimStart() + "\r\n");
-        //        } else {
-        //            sb.Append(Indent(count * times) + line.TrimStart() + "\r\n");
-        //        }
-        //    }
-        //    return sb.ToString();
-        //}
+        //----------------------------格式化代码----------------------------
+        /// <summary>
+        /// 格式化代码
+        /// </summary>
+        /// <param name="code">原来的代码</param>
+        /// <returns>格式化好的代码</returns>
+        public static string FormatCode(string code) {
+            //去除空白行
+            //code = RemoveEmptyLines(code);
+            StringBuilder sb = new StringBuilder();
+            int count = 4; //缩进空格数
+            int times = 0;
+            string[] lines = code.Split(Environment.NewLine.ToCharArray());
+            foreach (var line in lines) {
+                if (line.TrimStart().StartsWith("{") || line.TrimEnd().EndsWith("{")) {
+                    sb.AppendLine(Indent(count * times) + line.Trim());
+                    times++;
+                } else if (line.TrimStart().StartsWith("}")) {
+                    times--;
+                    if (times <= 0) {
+                        times = 0;
+                    }
+                    sb.AppendLine(Indent(count * times) + line.Trim());
+                } else {
+                    sb.AppendLine(Indent(count * times) + line.Trim());
+                }
+            }
+            return sb.ToString();
+        }
+        private static string Indent(int spaceNum) {
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < spaceNum; i++)
+                sb.Append(" ");
+            return sb.ToString();
+        }
     }
 
     /// <summary>
@@ -128,10 +157,10 @@ namespace EmailHomeworkSystem {
                     list.Add(new FoldMarker(document, start, document.GetLineSegment(start).Length, i, 57, FoldType.Region, "..."));
                 }
                 //支持嵌套 {}
-                if (text.Trim().StartsWith("{")) { // Look for method starts
+                if (text.Trim().StartsWith("{") || text.Trim().EndsWith("{")) { // Look for method starts
                     startLines.Push(i);
                 }
-                if (text.Trim().StartsWith("}")) { // Look for method endings
+                if (text.Trim().StartsWith("}") || text.Trim().EndsWith("}")) { // Look for method endings
                     if (startLines.Count > 0) {
                         int start = startLines.Pop();
                         list.Add(new FoldMarker(document, start, document.GetLineSegment(start).Length, i, 57, FoldType.TypeBody, "...}"));
@@ -143,7 +172,6 @@ namespace EmailHomeworkSystem {
                 }
                 if (text.Trim().StartsWith("/// <returns>")) { // Look for method endings
                     int start = startLines.Pop();
-                    //获取注释文本（包括空格）
                     string display = document.GetText(document.GetLineSegment(start + 1).Offset, document.GetLineSegment(start + 1).Length);
                     //remove ///
                     display = display.Trim().TrimStart('/');

@@ -82,7 +82,7 @@
             // 导入ToolStripMenuItem
             // 
             this.导入ToolStripMenuItem.Name = "导入ToolStripMenuItem";
-            this.导入ToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.导入ToolStripMenuItem.Size = new System.Drawing.Size(114, 26);
             this.导入ToolStripMenuItem.Text = "导入";
             this.导入ToolStripMenuItem.Click += new System.EventHandler(this.导入ToolStripMenuItem_Click);
             // 
@@ -103,7 +103,7 @@
             // 选项ToolStripMenuItem
             // 
             this.选项ToolStripMenuItem.Name = "选项ToolStripMenuItem";
-            this.选项ToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.选项ToolStripMenuItem.Size = new System.Drawing.Size(114, 26);
             this.选项ToolStripMenuItem.Text = "选项";
             this.选项ToolStripMenuItem.Click += new System.EventHandler(this.选项ToolStripMenuItem_Click);
             // 
@@ -152,10 +152,11 @@
             this.listView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listView.Font = new System.Drawing.Font("宋体", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.listView.LargeImageList = this.fileIconImageList;
-            this.listView.Location = new System.Drawing.Point(3, 56);
+            this.listView.Location = new System.Drawing.Point(0, 53);
+            this.listView.Margin = new System.Windows.Forms.Padding(0);
             this.listView.MultiSelect = false;
             this.listView.Name = "listView";
-            this.listView.Size = new System.Drawing.Size(882, 583);
+            this.listView.Size = new System.Drawing.Size(888, 589);
             this.listView.SmallImageList = this.fileIconImageList;
             this.listView.TabIndex = 25;
             this.listView.UseCompatibleStateImageBehavior = false;
@@ -190,11 +191,12 @@
             this.tableLayoutPanel2.Controls.Add(this.btnFolderBack, 0, 0);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel2.GrowStyle = System.Windows.Forms.TableLayoutPanelGrowStyle.AddColumns;
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 3);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(882, 47);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(888, 53);
             this.tableLayoutPanel2.TabIndex = 24;
             // 
             // pictureBox2
@@ -203,9 +205,9 @@
             this.pictureBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.pictureBox2.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pictureBox2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox2.Location = new System.Drawing.Point(838, 3);
+            this.pictureBox2.Location = new System.Drawing.Point(844, 3);
             this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(41, 41);
+            this.pictureBox2.Size = new System.Drawing.Size(41, 47);
             this.pictureBox2.TabIndex = 7;
             this.pictureBox2.TabStop = false;
             // 
@@ -215,9 +217,9 @@
             this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.pictureBox1.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox1.Location = new System.Drawing.Point(791, 3);
+            this.pictureBox1.Location = new System.Drawing.Point(797, 3);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(41, 41);
+            this.pictureBox1.Size = new System.Drawing.Size(41, 47);
             this.pictureBox1.TabIndex = 6;
             this.pictureBox1.TabStop = false;
             // 
@@ -226,7 +228,7 @@
             this.folderPathFlow.Dock = System.Windows.Forms.DockStyle.Fill;
             this.folderPathFlow.Location = new System.Drawing.Point(144, 3);
             this.folderPathFlow.Name = "folderPathFlow";
-            this.folderPathFlow.Size = new System.Drawing.Size(641, 41);
+            this.folderPathFlow.Size = new System.Drawing.Size(647, 47);
             this.folderPathFlow.TabIndex = 5;
             // 
             // btnFolderRefresh
@@ -237,7 +239,7 @@
             this.btnFolderRefresh.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnFolderRefresh.Location = new System.Drawing.Point(97, 3);
             this.btnFolderRefresh.Name = "btnFolderRefresh";
-            this.btnFolderRefresh.Size = new System.Drawing.Size(41, 41);
+            this.btnFolderRefresh.Size = new System.Drawing.Size(41, 47);
             this.btnFolderRefresh.TabIndex = 2;
             this.btnFolderRefresh.TabStop = false;
             this.btnFolderRefresh.MouseLeave += new System.EventHandler(this.btnFolderRefresh_MouseLeave);
@@ -251,7 +253,7 @@
             this.btnFolderForward.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnFolderForward.Location = new System.Drawing.Point(50, 3);
             this.btnFolderForward.Name = "btnFolderForward";
-            this.btnFolderForward.Size = new System.Drawing.Size(41, 41);
+            this.btnFolderForward.Size = new System.Drawing.Size(41, 47);
             this.btnFolderForward.TabIndex = 1;
             this.btnFolderForward.TabStop = false;
             this.btnFolderForward.MouseLeave += new System.EventHandler(this.btnFolderForward_MouseLeave);
@@ -267,7 +269,7 @@
             this.btnFolderBack.Enabled = false;
             this.btnFolderBack.Location = new System.Drawing.Point(3, 3);
             this.btnFolderBack.Name = "btnFolderBack";
-            this.btnFolderBack.Size = new System.Drawing.Size(41, 41);
+            this.btnFolderBack.Size = new System.Drawing.Size(41, 47);
             this.btnFolderBack.TabIndex = 0;
             this.btnFolderBack.TabStop = false;
             this.btnFolderBack.MouseLeave += new System.EventHandler(this.btnFolderBack_MouseLeave);
