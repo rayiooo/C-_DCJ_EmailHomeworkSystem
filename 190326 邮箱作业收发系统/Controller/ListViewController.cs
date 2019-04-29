@@ -26,17 +26,17 @@ namespace EmailHomeworkSystem.Controller {
                     ListViewItem item = new ListViewItem(dir.Name, 0);
                     form.listView.Items.Add(item);
                 }
-                foreach (FileInfo dir in info.GetFiles()) {
-                    ListViewItem item = new ListViewItem(dir.Name);
-                    if (dir.Name.EndsWith(".cpp")) {
+                foreach (FileInfo file in info.GetFiles()) {
+                    ListViewItem item = new ListViewItem(file.Name);
+                    if (file.Name.EndsWith(".cpp")) {
                         item.ImageIndex = 1;
-                    } else if (dir.Name.EndsWith(".h")) {
+                    } else if (file.Name.EndsWith(".h")) {
                         item.ImageIndex = 2;
-                    } else if (dir.Name.EndsWith(".rar")) {
+                    } else if (file.Name.EndsWith(".rar")) {
                         item.ImageIndex = 4;
-                    } else if (dir.Name.EndsWith(".txt")) {
+                    } else if (file.Name.EndsWith(".txt")) {
                         item.ImageIndex = 5;
-                    } else if (dir.Name.EndsWith(".zip")) {
+                    } else if (file.Name.EndsWith(".zip")) {
                         item.ImageIndex = 6;
                     } else {
                         item.ImageIndex = 3;

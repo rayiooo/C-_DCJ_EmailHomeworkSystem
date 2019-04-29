@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.28307.489
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "190326 邮箱作业收发系统", "190326 邮箱作业收发系统\190326 邮箱作业收发系统.csproj", "{907273BA-35C2-426C-8739-4EF35A0F6591}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CppRunningHelper", "CppRunningHelper\CppRunningHelper.csproj", "{BA1E2A33-CE5F-4221-9BC4-06DE6BCAC03C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{907273BA-35C2-426C-8739-4EF35A0F6591}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{907273BA-35C2-426C-8739-4EF35A0F6591}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{907273BA-35C2-426C-8739-4EF35A0F6591}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BA1E2A33-CE5F-4221-9BC4-06DE6BCAC03C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA1E2A33-CE5F-4221-9BC4-06DE6BCAC03C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA1E2A33-CE5F-4221-9BC4-06DE6BCAC03C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA1E2A33-CE5F-4221-9BC4-06DE6BCAC03C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

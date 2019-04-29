@@ -1,4 +1,5 @@
-﻿using ICSharpCode.TextEditor.Document;
+﻿using CppRunningHelper;
+using ICSharpCode.TextEditor.Document;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -8,6 +9,8 @@ using System.Windows.Forms;
 
 namespace EmailHomeworkSystem {
     public partial class FormCodeView : Form {
+        private FileInfo fileinfo;
+
         public FormCodeView() {
             InitializeComponent();
             InitializeUI();
@@ -16,21 +19,38 @@ namespace EmailHomeworkSystem {
         //----------------------------初始化操作----------------------------
 
         private void InitializeUI() {
-            textEditor.Document.HighlightingStrategy = HighlightingStrategyFactory.CreateHighlightingStrategy("C++.NET");
-            textEditor.Encoding = Encoding.Default;
-            textEditor.Document.FoldingManager.FoldingStrategy = new CppFolding();
+            codeEditor.Document.HighlightingStrategy = HighlightingStrategyFactory.CreateHighlightingStrategy("C++.NET");
+            codeEditor.Encoding = Encoding.Default;
+            codeEditor.Document.FoldingManager.FoldingStrategy = new CppFolding();
         }
 
         //----------------------------功能操作----------------------------
 
         public void OpenFile(string filePath) {
             this.Text = filePath;
-            textEditor.Text = File.ReadAllText(filePath, Encoding.Default);
+            this.fileinfo = new FileInfo(filePath);
+            codeEditor.Text = File.ReadAllText(filePath, Encoding.Default);
             //textEditor.Text = FormatCode(textEditor.Text); //格式化代码
         }
 
         //----------------------------界面事件----------------------------
 
+        /// <summary>
+        /// 编译运行
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnRun_Click(object sender, EventArgs e) {
+            if (!CppHelper.Compile(fileinfo.Directory.FullName)) {
+                MessageBox.Show("编译失败！", "Warning");
+            }
+            if (!CppHelper.Run(fileinfo.Directory.FullName)) {
+                MessageBox.Show("运行失败！", "Warning");
+            }
+            //if (!CppHelper.Clean(fileinfo.Directory.FullName)) {
+            //    MessageBox.Show("编译文件清理失败！", "Warning");
+            //}
+        }
         private void btnSave_MouseMove(object sender, MouseEventArgs e) {
             btnSave.BackColor = Color.LightBlue;
         }
@@ -52,7 +72,7 @@ namespace EmailHomeworkSystem {
         }
 
         private void textEditor_TextChanged(object sender, System.EventArgs e) {
-            textEditor.Document.FoldingManager.UpdateFoldings(null, null);
+            codeEditor.Document.FoldingManager.UpdateFoldings(null, null);
             //if (textEditor.Text.Length <= oldJScodeLength) return;
             //var Line = this.textEditor.ActiveTextAreaControl.Caret.Line;
             //var offset = this.textEditor.ActiveTextAreaControl.Caret.Offset;

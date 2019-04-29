@@ -27,7 +27,7 @@
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.btnRun = new System.Windows.Forms.PictureBox();
             this.btnSave = new System.Windows.Forms.PictureBox();
-            this.textEditor = new ICSharpCode.TextEditor.TextEditorControl();
+            this.codeEditor = new ICSharpCode.TextEditor.TextEditorControl();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnRun)).BeginInit();
@@ -39,7 +39,7 @@
             this.tableLayoutPanel1.ColumnCount = 1;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel2, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.textEditor, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.codeEditor, 0, 1);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -77,6 +77,7 @@
             this.btnRun.Size = new System.Drawing.Size(36, 34);
             this.btnRun.TabIndex = 1;
             this.btnRun.TabStop = false;
+            this.btnRun.Click += new System.EventHandler(this.btnRun_Click);
             this.btnRun.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnRun_MouseDown);
             this.btnRun.MouseLeave += new System.EventHandler(this.btnRun_MouseLeave);
             this.btnRun.MouseMove += new System.Windows.Forms.MouseEventHandler(this.btnRun_MouseMove);
@@ -96,16 +97,16 @@
             this.btnSave.MouseLeave += new System.EventHandler(this.btnSave_MouseLeave);
             this.btnSave.MouseMove += new System.Windows.Forms.MouseEventHandler(this.btnSave_MouseMove);
             // 
-            // textEditor
+            // codeEditor
             // 
-            this.textEditor.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textEditor.IsReadOnly = false;
-            this.textEditor.Location = new System.Drawing.Point(0, 42);
-            this.textEditor.Margin = new System.Windows.Forms.Padding(0);
-            this.textEditor.Name = "textEditor";
-            this.textEditor.Size = new System.Drawing.Size(1071, 628);
-            this.textEditor.TabIndex = 2;
-            this.textEditor.Text = "#include <iostream>;\r\nusing namespace std;\r\nint main(){\r\n    cout << \"hello world" +
+            this.codeEditor.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.codeEditor.IsReadOnly = false;
+            this.codeEditor.Location = new System.Drawing.Point(0, 42);
+            this.codeEditor.Margin = new System.Windows.Forms.Padding(0);
+            this.codeEditor.Name = "codeEditor";
+            this.codeEditor.Size = new System.Drawing.Size(1071, 628);
+            this.codeEditor.TabIndex = 2;
+            this.codeEditor.Text = "#include <iostream>;\r\nusing namespace std;\r\nint main(){\r\n    cout << \"hello world" +
     "!\" << endl;\r\n}";
             // 
             // FormCodeView
@@ -130,6 +131,6 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.PictureBox btnRun;
         private System.Windows.Forms.PictureBox btnSave;
-        private ICSharpCode.TextEditor.TextEditorControl textEditor;
+        private ICSharpCode.TextEditor.TextEditorControl codeEditor;
     }
 }
