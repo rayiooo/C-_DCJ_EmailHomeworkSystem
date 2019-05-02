@@ -1,4 +1,5 @@
 ﻿using CppRunningHelper;
+using EmailHomeworkSystem.Controller;
 using ICSharpCode.TextEditor.Document;
 using System;
 using System.Collections.Generic;
@@ -9,14 +10,22 @@ using System.Windows.Forms;
 
 namespace EmailHomeworkSystem {
     public partial class FormCodeView : Form {
-        private FileInfo fileinfo;
+        public FolderController folderController;
+        public ListViewController listViewController;
+        private FileInfo _fileinfo;
 
         public FormCodeView() {
             InitializeComponent();
             InitializeUI();
+            InitializeController();
         }
 
         //----------------------------初始化操作----------------------------
+
+        private void InitializeController() {
+            folderController = new FolderController();
+            listViewController = new ListViewController(this.fileListView);
+        }
 
         private void InitializeUI() {
             codeEditor.Document.HighlightingStrategy = HighlightingStrategyFactory.CreateHighlightingStrategy("C++.NET");
@@ -26,11 +35,17 @@ namespace EmailHomeworkSystem {
 
         //----------------------------功能操作----------------------------
 
-        public void OpenFile(string filePath) {
-            this.Text = filePath;
-            this.fileinfo = new FileInfo(filePath);
-            codeEditor.Text = File.ReadAllText(filePath, Encoding.Default);
+        public void OpenFile(string fileName) {
+            string fileFullPath = folderController.GetChildFullPath(fileName);
+            this.Text = fileFullPath;
+            _fileinfo = new FileInfo(fileFullPath);
+            codeEditor.Text = File.ReadAllText(fileFullPath, Encoding.Default);
             //textEditor.Text = FormatCode(textEditor.Text); //格式化代码
+        }
+
+        public void OpenFolder(string fullPath) {
+            this.folderController.SetRoot(fullPath);
+            this.listViewController.ImportOnlyCode(folderController.GetRoot());
         }
 
         //----------------------------界面事件----------------------------
@@ -41,10 +56,10 @@ namespace EmailHomeworkSystem {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void btnRun_Click(object sender, EventArgs e) {
-            if (!CppHelper.Compile(fileinfo.Directory.FullName)) {
+            if (!CppHelper.Compile(_fileinfo.Directory.FullName)) {
                 MessageBox.Show("编译失败！", "Warning");
             }
-            if (!CppHelper.Run(fileinfo.Directory.FullName)) {
+            if (!CppHelper.Run(_fileinfo.Directory.FullName)) {
                 MessageBox.Show("运行失败！", "Warning");
             }
             //if (!CppHelper.Clean(fileinfo.Directory.FullName)) {
@@ -69,6 +84,18 @@ namespace EmailHomeworkSystem {
         }
         private void btnRun_MouseDown(object sender, MouseEventArgs e) {
             btnRun.BackColor = Color.SkyBlue;
+        }
+
+        private void fileListView_MouseDoubleClick(object sender, MouseEventArgs e) {
+            ListViewHitTestInfo info = fileListView.HitTest(e.X, e.Y);
+            if (info.Item != null) {
+                ListViewItem item = info.Item;
+                if (item.ImageIndex == 0) { //如果是文件夹
+                    listViewController.ImportOnlyCode(folderController.GetFullPath(), folderController.IsRoot());
+                } else { //如果是文件
+                    OpenFile(item.Text);
+                }
+            }
         }
 
         private void textEditor_TextChanged(object sender, System.EventArgs e) {
@@ -140,6 +167,10 @@ namespace EmailHomeworkSystem {
             for (int i = 0; i < spaceNum; i++)
                 sb.Append(" ");
             return sb.ToString();
+        }
+
+        private void FormCodeView_Load(object sender, EventArgs e) {
+
         }
     }
 

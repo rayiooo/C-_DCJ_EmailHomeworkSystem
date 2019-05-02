@@ -131,6 +131,7 @@
             this.treeView.Name = "treeView";
             this.treeView.Size = new System.Drawing.Size(179, 642);
             this.treeView.TabIndex = 6;
+            this.treeView.Visible = false;
             // 
             // tableLayoutPanel1
             // 

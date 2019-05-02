@@ -6,61 +6,54 @@ namespace EmailHomeworkSystem.Controller {
     /// 路径控制器，方便对路径的管理
     /// </summary>
     public class FolderController {
-        private FormMain _form;
         private string _relativePath; //相对根目录的路径
         private string _root;
-        public string root {
-            get { return _root; }
-            set { _form.listViewController.Import(value); _form.treeViewController.Import(value); _root = value; }
+
+        public FolderController() {
+
         }
 
-        public FolderController(FormMain form) {
-            _form = form;
+        public FolderController(string root) {
+            _root = root;
+            _relativePath = "";
         }
 
-        public string GetChildPathFull(string childName) {
+        public string GetChildFullPath(string childName) {
             return string.Format("{0}{1}\\{2}", _root, _relativePath, childName);
         }
 
-        /// <summary>
-        /// 进入下级目录
-        /// </summary>
-        /// <param name="folderName">下级目录文件夹名</param>
-        public void GoChildPath(string folderName) {
-            _relativePath = string.Format("{0}\\{1}", _relativePath, folderName);
-            _form.listViewController.Import(_root + _relativePath);
-
-            //刷新返回键可用状态
-            if(_relativePath != "" && !_form.btnFolderBack.Enabled) {
-                if (_form.InvokeRequired) {
-                    _form.Invoke(new Action(() => {
-                        _form.btnFolderBack.Enabled = true;
-                    }));
-                } else {
-                    _form.btnFolderBack.Enabled = true;
-                }
-            }
+        public string GetFullPath() {
+            return _root + _relativePath;
+        }
+        
+        public string GetRoot() {
+            return _root;
         }
 
-        /// <summary>
-        /// 返回上级目录，如果已到根目录则直接返回
-        /// </summary>
-        public void GoParentPath() {
-            if (_relativePath == "")
-                return;
-            _relativePath = Directory.GetParent(_root + _relativePath).FullName.Replace(_root, "");
-            _form.listViewController.Import(_root + _relativePath);
-
-            //刷新返回键可用状态
-            if(_relativePath == "" && _form.btnFolderBack.Enabled) {
-                if (_form.InvokeRequired) {
-                    _form.Invoke(new Action(() => {
-                        _form.btnFolderBack.Enabled = false;
-                    }));
-                } else {
-                    _form.btnFolderBack.Enabled = false;
-                }
+        public string GoChildPath(string folderName) {
+            if(folderName == "..") {
+                return GoParentPath();
             }
+            _relativePath = string.Format("{0}\\{1}", _relativePath, folderName);
+            return _root + _relativePath;
+        }
+        
+        public string GoParentPath() {
+            if (_relativePath == "")
+                return _root;
+            _relativePath = Directory.GetParent(_root + _relativePath).FullName.Replace(_root, "");
+            return _root + _relativePath;
+        }
+
+        public bool IsRoot() {
+            if (_relativePath == "")
+                return true;
+            return false;
+        }
+
+        public void SetRoot(string root) {
+            _root = root;
+            _relativePath = "";
         }
     }
 }

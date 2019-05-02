@@ -21,8 +21,8 @@ namespace EmailHomeworkSystem {
         /// 初始化控制器们
         /// </summary>
         private void InitializeController() {
-            folderController = new FolderController(this);
-            listViewController = new ListViewController(this);
+            folderController = new FolderController();
+            listViewController = new ListViewController(this.listView);
             treeViewController = new TreeViewController(this);
         }
         /// <summary>
@@ -30,7 +30,8 @@ namespace EmailHomeworkSystem {
         /// </summary>
         private void InitializeSettings() {
             if(Settings.Default.FolderPath != "") {
-                folderController.root = Settings.Default.FolderPath;
+                folderController.SetRoot(Settings.Default.FolderPath);
+                listViewController.Import(folderController.GetFullPath());
             }
         }
 
@@ -39,23 +40,23 @@ namespace EmailHomeworkSystem {
         //***************************界面点击事件****************************
         
         private void btnFolderBack_MouseUp(object sender, MouseEventArgs e) {
-            folderController.GoParentPath();
+            listViewController.Import(folderController.GoParentPath());
+            this.btnFolderBack.Enabled = folderController.IsRoot() ? false : true;
         }
 
         private void listView_MouseDoubleClick(object sender, MouseEventArgs e) {
             ListViewHitTestInfo info = listView.HitTest(e.X, e.Y);
             if (info.Item != null) {
                 ListViewItem item = info.Item;
-                if (item.ImageIndex == 0) {
-                    //如果是文件夹
-                    folderController.GoChildPath(item.Text);
-                } else {
-                    //TODO: 如果是文件
-
+                if (item.ImageIndex == 0) { //如果是文件夹
+                    listViewController.Import(folderController.GoChildPath(item.Text));
+                } else { //如果是文件
                     FormCodeView formCV = new FormCodeView();
-                    formCV.OpenFile(folderController.GetChildPathFull(item.Text));
+                    formCV.OpenFolder(folderController.GetFullPath());
+                    formCV.OpenFile(item.Text);
                     formCV.Show(this);
                 }
+                this.btnFolderBack.Enabled = folderController.IsRoot() ? false : true;
             }
         }
 
@@ -65,8 +66,9 @@ namespace EmailHomeworkSystem {
         }
         private void 导入ToolStripMenuItem_Click(object sender, EventArgs e) {
             if(this.folderBrowserDialog.ShowDialog() == DialogResult.OK) {
-                folderController.root = folderBrowserDialog.SelectedPath;
-                Settings.Default.FolderPath = folderController.root;
+                folderController.SetRoot(folderBrowserDialog.SelectedPath);
+                listViewController.Import(folderController.GetFullPath());
+                Settings.Default.FolderPath = folderController.GetRoot();
                 Settings.Default.Save();
             }
         }
