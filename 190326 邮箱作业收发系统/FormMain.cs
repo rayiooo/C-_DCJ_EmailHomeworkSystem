@@ -2,9 +2,11 @@
 using EmailHomeworkSystem.Controller;
 using System.Windows.Forms;
 using EmailHomeworkSystem.Properties;
+using EmailHomeworkSystem.Database;
 
 namespace EmailHomeworkSystem {
     public partial class FormMain : Form {
+        public DBOptionHelper dboh;
         public FolderController folderController;
         public ListViewController listViewController;
         public TreeViewController treeViewController;
@@ -32,6 +34,7 @@ namespace EmailHomeworkSystem {
             if(Settings.Default.FolderPath != "") {
                 folderController.SetRoot(Settings.Default.FolderPath);
                 listViewController.Import(folderController.GetFullPath());
+                dboh = new DBOptionHelper(folderController.GetRoot());
             }
         }
 
@@ -70,6 +73,7 @@ namespace EmailHomeworkSystem {
                 listViewController.Import(folderController.GetFullPath());
                 Settings.Default.FolderPath = folderController.GetRoot();
                 Settings.Default.Save();
+                dboh = new DBOptionHelper(folderController.GetRoot());
             }
         }
 

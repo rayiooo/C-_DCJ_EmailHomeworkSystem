@@ -99,6 +99,7 @@
             this.btnSave.Size = new System.Drawing.Size(36, 34);
             this.btnSave.TabIndex = 0;
             this.btnSave.TabStop = false;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             this.btnSave.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnSave_MouseDown);
             this.btnSave.MouseLeave += new System.EventHandler(this.btnSave_MouseLeave);
             this.btnSave.MouseMove += new System.Windows.Forms.MouseEventHandler(this.btnSave_MouseMove);
