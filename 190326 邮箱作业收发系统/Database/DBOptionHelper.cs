@@ -18,7 +18,29 @@ namespace EmailHomeworkSystem.Database {
                 SqLiteHelper.NewDbFile(dbPath);
                 //添加表
                 SqLiteHelper sh = new SqLiteHelper(dbPath);
-                sh.CreateTable("Student", new string[] { "sno", "name" }, new string[] { "text", "text" });
+                StringBuilder query = new StringBuilder();
+                query.AppendLine("CREATE TABLE \"student\" (");
+                query.AppendLine("    \"sno\" TEXT(32) NOT NULL,");
+                query.AppendLine("    \"sname\" TEXT(32) NOT NULL,");
+                query.AppendLine("    PRIMARY KEY(\"sno\"),");
+                query.AppendLine("    FOREIGN KEY(\"sno\") REFERENCES \"score\"(\"sno\")");
+                query.AppendLine(");");
+                query.AppendLine("CREATE TABLE \"homework\"(");
+                query.AppendLine("    \"hno\" TEXT(32) NOT NULL,");
+                query.AppendLine("    \"publishTime\" INTEGER,");
+                query.AppendLine("    \"endingTime\" INTEGER NOT NULL,");
+                query.AppendLine("    \"content\" TEXT,");
+                query.AppendLine("    PRIMARY KEY(\"hno\"),");
+                query.AppendLine("    FOREIGN KEY(\"hno\") REFERENCES \"score\"(\"hno\")");
+                query.AppendLine(");");
+                query.AppendLine("CREATE TABLE \"score\"(");
+                query.AppendLine("    \"sno\" TEXT(32) NOT NULL,");
+                query.AppendLine("    \"hno\" TEXT(32) NOT NULL,");
+                query.AppendLine("    \"commitTime\" INTEGER,");
+                query.AppendLine("    \"score\" INTEGER DEFAULT 0,");
+                query.AppendLine("    PRIMARY KEY(\"sno\", \"hno\")");
+                query.AppendLine(");");
+                sh.ExecuteQuery(query.ToString());
                 sh.CloseConnection();
                 //读取信息
                 ReadStudents();
