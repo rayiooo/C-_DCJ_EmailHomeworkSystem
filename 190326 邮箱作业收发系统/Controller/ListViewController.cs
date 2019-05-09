@@ -3,6 +3,7 @@ using EmailHomeworkSystem.Database;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace EmailHomeworkSystem.Controller {
@@ -96,17 +97,21 @@ namespace EmailHomeworkSystem.Controller {
             foreach(DirectoryInfo i in rootInfo.GetDirectories()) { //按姓名
                 string sname = Base.GetChinese(i.Name);
                 foreach (DirectoryInfo j in i.GetDirectories()) { //按作业
-                    Hmwk homework = new Hmwk(sname, j.Name, j);
+                    string hno = j.Name.ToUpper().Split('-')[0];
+                    Hmwk homework = new Hmwk(sname, j.Name.ToUpper(), j);
                     if (!stuDict.ContainsKey(sname)) {
                         stuDict.Add(sname, new List<Hmwk>());
                     }
-                    if (!hmwkDict.ContainsKey(j.Name)) {
-                        hmwkDict.Add(j.Name, new List<Hmwk>());
+                    if (!hmwkDict.ContainsKey(hno)) {
+                        hmwkDict.Add(hno, new List<Hmwk>());
                     }
                     stuDict[sname].Add(homework);
-                    hmwkDict[j.Name].Add(homework);
+                    hmwkDict[hno].Add(homework);
                 }
             }
+            //stuDict = from stuObj in stuDict orderby stuObj.Key select stuObj;
+            stuDict = stuDict.OrderBy(o => o.Key).ToDictionary(o => o.Key, p => p.Value);
+            hmwkDict = hmwkDict.OrderBy(o => o.Key).ToDictionary(o => o.Key, p => p.Value);
             haveSearchedChildAndGroup = true;
         }
 
