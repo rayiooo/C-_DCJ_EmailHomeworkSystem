@@ -4,6 +4,19 @@ using System.Text;
 
 namespace EmailHomeworkSystem.BaseLib {
     class Base {
+        /// <summary>
+        /// 提取字符串中的中文
+        /// </summary>
+        public static string GetChinese(string str) {
+            StringBuilder sb = new StringBuilder();
+            foreach (char c in str.ToCharArray()) {
+                if (c >= 0x4e00 && c <= 0x9fa5) {
+                    sb.Append(c);
+                }
+            }
+            return sb.ToString();
+        }
+
         public static string GetCurrentTime() {
             return DateTime.Now.ToLocalTime().ToString("yyyy-MM-dd HH:mm:ss");
         }

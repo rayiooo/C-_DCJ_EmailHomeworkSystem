@@ -35,6 +35,9 @@ namespace EmailHomeworkSystem {
 
         //----------------------------功能操作----------------------------
 
+        /// <summary>
+        /// 打开一个文件并展示在codeEditor中
+        /// </summary>
         public void OpenFile(string fileName) {
             string fileFullPath = folderController.GetChildFullPath(fileName);
             this.Text = fileFullPath;
@@ -44,6 +47,10 @@ namespace EmailHomeworkSystem {
             //textEditor.Text = FormatCode(textEditor.Text); //格式化代码
         }
 
+        /// <summary>
+        /// 选定一个目录作为项目根目录，加载到编辑器中
+        /// </summary>
+        /// <param name="fullPath"></param>
         public void OpenFolder(string fullPath) {
             this.folderController.SetRoot(fullPath);
             this.listViewController.Import(folderController.GetRoot());

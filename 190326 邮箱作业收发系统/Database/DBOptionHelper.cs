@@ -1,18 +1,41 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using EmailHomeworkSystem.BaseLib;
+using System;
+using System.Data.SQLite;
 using System.IO;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace EmailHomeworkSystem.Database {
     public class DBOptionHelper {
-        private string dbPath;
-        private string rootPath;
+        private static string dbPath;
+        private static string rootPath;
 
-        public DBOptionHelper(string rootPath) {
-            this.rootPath = rootPath;
-            dbPath = rootPath + "\\sqlite.db";
+        /// <summary>
+        /// 从students.txt中读取学生信息并写入到数据库中
+        /// </summary>
+        private static void _ReadStudents() {
+            if (!File.Exists(rootPath + "\\students.txt")) {
+                throw new FileNotFoundException("学生信息文件students.txt不存在！");
+            }
+            string[] students = File.ReadAllLines(rootPath + "\\students.txt");
+            SqLiteHelper sh = new SqLiteHelper(dbPath);
+            foreach (string item in students) {
+                if (item.Length == 0)
+                    continue;
+                string[] stu = item.Split('\t');
+                if (stu.Length == 2) {
+                    sh.InsertValues("student", new string[] { stu[0].Trim(), stu[1].Trim() });
+                }
+            }
+            sh.CloseConnection();
+        }
+
+        /// <summary>
+        /// 初始化数据库路径，如果没有就创建一个
+        /// </summary>
+        /// <param name="root">数据库根目录文件夹</param>
+        public static void Initialize(string root) {
+            rootPath = root;
+            dbPath = root + "\\sqlite.db";
             if (!File.Exists(dbPath)) {
                 //创建文件
                 SqLiteHelper.NewDbFile(dbPath);
@@ -43,24 +66,33 @@ namespace EmailHomeworkSystem.Database {
                 sh.ExecuteQuery(query.ToString());
                 sh.CloseConnection();
                 //读取信息
-                ReadStudents();
+                _ReadStudents();
             }
         }
-        private void ReadStudents() {
-            if(!File.Exists(rootPath + "\\students.txt")) {
-                throw new FileNotFoundException("学生信息文件students.txt不存在！");
-            }
-            string[] students = File.ReadAllLines(rootPath + "\\students.txt");
+
+        /// <summary>
+        /// 获取某学生某次作业分数
+        /// </summary>
+        /// <param name="sname">学生姓名</param>
+        /// <param name="hno">作业号</param>
+        /// <returns>返回分数，如果获取错误就返回-1</returns>
+        public static int GetScore(string sname, string hno) {
+            if (dbPath == null)
+                return -1;
+            string sql = string.Format("SELECT score FROM score " +
+                "WHERE sno=(SELECT sno FROM student WHERE sname=\"{0}\") AND hno=\"{1}\"", sname, hno);
+            int ret = -1;
             SqLiteHelper sh = new SqLiteHelper(dbPath);
-            foreach(string item in students) {
-                if (item.Length == 0)
-                    continue;
-                string[] stu = item.Split('\t');
-                if(stu.Length == 2) {
-                    sh.InsertValues("student", new string[] { stu[0].Trim(), stu[1].Trim() });
+            using(SQLiteDataReader dr = sh.ExecuteQuery(sql)) {
+                while (dr.Read()) {
+                    try {
+                        ret = int.Parse(dr["score"].ToString());
+                    } catch (Exception ex) {
+                        Log.E("获取作业分数时发生异常：" + ex.Message);
+                    }
                 }
             }
-            sh.CloseConnection();
+            return ret;
         }
     }
 }

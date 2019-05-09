@@ -33,7 +33,10 @@
             this.选项ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.treeView = new System.Windows.Forms.TreeView();
+            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
+            this.btnHaveNotRead = new System.Windows.Forms.Button();
+            this.btnHmwk = new System.Windows.Forms.Button();
+            this.btnStu = new System.Windows.Forms.Button();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.listView = new System.Windows.Forms.ListView();
             this.fileIconImageList = new System.Windows.Forms.ImageList(this.components);
@@ -49,6 +52,7 @@
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
+            this.tableLayoutPanel3.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -115,7 +119,7 @@
             // 
             // splitContainer1.Panel1
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.treeView);
+            this.splitContainer1.Panel1.Controls.Add(this.tableLayoutPanel3);
             // 
             // splitContainer1.Panel2
             // 
@@ -124,14 +128,68 @@
             this.splitContainer1.SplitterDistance = 179;
             this.splitContainer1.TabIndex = 7;
             // 
-            // treeView
+            // tableLayoutPanel3
             // 
-            this.treeView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.treeView.Location = new System.Drawing.Point(0, 0);
-            this.treeView.Name = "treeView";
-            this.treeView.Size = new System.Drawing.Size(179, 642);
-            this.treeView.TabIndex = 6;
-            this.treeView.Visible = false;
+            this.tableLayoutPanel3.BackColor = System.Drawing.SystemColors.Window;
+            this.tableLayoutPanel3.ColumnCount = 1;
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel3.Controls.Add(this.btnHaveNotRead, 0, 2);
+            this.tableLayoutPanel3.Controls.Add(this.btnHmwk, 0, 1);
+            this.tableLayoutPanel3.Controls.Add(this.btnStu, 0, 0);
+            this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
+            this.tableLayoutPanel3.RowCount = 12;
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 8.333333F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 8.333333F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 8.333333F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 8.333333F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 8.333333F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 8.333333F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 8.333333F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 8.333333F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 8.333333F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 8.333333F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 8.333333F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 8.333333F));
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(179, 642);
+            this.tableLayoutPanel3.TabIndex = 0;
+            // 
+            // btnHaveNotRead
+            // 
+            this.btnHaveNotRead.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnHaveNotRead.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnHaveNotRead.Location = new System.Drawing.Point(3, 109);
+            this.btnHaveNotRead.Name = "btnHaveNotRead";
+            this.btnHaveNotRead.Size = new System.Drawing.Size(173, 47);
+            this.btnHaveNotRead.TabIndex = 2;
+            this.btnHaveNotRead.Text = "仅查看未批改";
+            this.btnHaveNotRead.UseVisualStyleBackColor = true;
+            this.btnHaveNotRead.Click += new System.EventHandler(this.btnHaveNotRead_Click);
+            // 
+            // btnHmwk
+            // 
+            this.btnHmwk.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnHmwk.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnHmwk.Location = new System.Drawing.Point(3, 56);
+            this.btnHmwk.Name = "btnHmwk";
+            this.btnHmwk.Size = new System.Drawing.Size(173, 47);
+            this.btnHmwk.TabIndex = 1;
+            this.btnHmwk.Text = "按作业分类";
+            this.btnHmwk.UseVisualStyleBackColor = true;
+            this.btnHmwk.Click += new System.EventHandler(this.btnHmwk_Click);
+            // 
+            // btnStu
+            // 
+            this.btnStu.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnStu.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnStu.Location = new System.Drawing.Point(3, 3);
+            this.btnStu.Name = "btnStu";
+            this.btnStu.Size = new System.Drawing.Size(173, 47);
+            this.btnStu.TabIndex = 0;
+            this.btnStu.Text = "按学生分类";
+            this.btnStu.UseVisualStyleBackColor = true;
+            this.btnStu.Click += new System.EventHandler(this.btnStu_Click);
             // 
             // tableLayoutPanel1
             // 
@@ -161,6 +219,7 @@
             this.listView.SmallImageList = this.fileIconImageList;
             this.listView.TabIndex = 25;
             this.listView.UseCompatibleStateImageBehavior = false;
+            this.listView.View = System.Windows.Forms.View.Details;
             this.listView.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listView_MouseDoubleClick);
             // 
             // fileIconImageList
@@ -292,6 +351,7 @@
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
+            this.tableLayoutPanel3.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
@@ -313,7 +373,6 @@
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog;
         private System.Windows.Forms.ToolStripMenuItem 导入ToolStripMenuItem;
         private System.Windows.Forms.SplitContainer splitContainer1;
-        public System.Windows.Forms.TreeView treeView;
         public System.Windows.Forms.ImageList fileIconImageList;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         public System.Windows.Forms.ListView listView;
@@ -324,6 +383,10 @@
         public System.Windows.Forms.PictureBox btnFolderRefresh;
         public System.Windows.Forms.PictureBox btnFolderForward;
         public System.Windows.Forms.PictureBox btnFolderBack;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
+        private System.Windows.Forms.Button btnHmwk;
+        private System.Windows.Forms.Button btnStu;
+        private System.Windows.Forms.Button btnHaveNotRead;
     }
 }
 

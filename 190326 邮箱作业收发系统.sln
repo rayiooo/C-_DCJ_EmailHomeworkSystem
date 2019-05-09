@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "190326 邮箱作业收发�
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CppRunningHelper", "CppRunningHelper\CppRunningHelper.csproj", "{BA1E2A33-CE5F-4221-9BC4-06DE6BCAC03C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestProject", "UnitTestProject\UnitTestProject.csproj", "{675D0638-8508-4DD4-9423-8F8DC8BD19FE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{BA1E2A33-CE5F-4221-9BC4-06DE6BCAC03C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BA1E2A33-CE5F-4221-9BC4-06DE6BCAC03C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BA1E2A33-CE5F-4221-9BC4-06DE6BCAC03C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{675D0638-8508-4DD4-9423-8F8DC8BD19FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{675D0638-8508-4DD4-9423-8F8DC8BD19FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{675D0638-8508-4DD4-9423-8F8DC8BD19FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{675D0638-8508-4DD4-9423-8F8DC8BD19FE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
