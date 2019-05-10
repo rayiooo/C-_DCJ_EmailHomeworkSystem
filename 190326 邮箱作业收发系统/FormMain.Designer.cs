@@ -182,6 +182,7 @@
             // 
             // btnStu
             // 
+            this.btnStu.BackColor = System.Drawing.SystemColors.Window;
             this.btnStu.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnStu.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnStu.Location = new System.Drawing.Point(3, 3);
@@ -189,7 +190,7 @@
             this.btnStu.Size = new System.Drawing.Size(173, 47);
             this.btnStu.TabIndex = 0;
             this.btnStu.Text = "按学生分类";
-            this.btnStu.UseVisualStyleBackColor = true;
+            this.btnStu.UseVisualStyleBackColor = false;
             this.btnStu.Click += new System.EventHandler(this.btnStu_Click);
             // 
             // tableLayoutPanel1

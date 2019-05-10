@@ -103,12 +103,14 @@ namespace EmailHomeworkSystem.Controller {
                 foreach (DirectoryInfo j in i.GetDirectories()) { //按作业
                     string hno = j.Name.ToUpper().Split('-')[0];
                     Hmwk homework = new Hmwk(sname, j.Name.ToUpper(), j);
+                    //初始化
                     if (!stuDict.ContainsKey(sname)) {
                         stuDict.Add(sname, new Dictionary<string, Hmwk>());
                     }
                     if (!hmwkDict.ContainsKey(hno)) {
                         hmwkDict.Add(hno, new Dictionary<string, Hmwk>());
                     }
+                    //加dict
                     stuDict[sname].Add(j.Name.ToUpper(), homework);
                     if (!hmwkDict[hno].ContainsKey(sname)) {
                         hmwkDict[hno].Add(sname, homework);
@@ -117,11 +119,11 @@ namespace EmailHomeworkSystem.Controller {
                         while (hmwkDict[hno].ContainsKey(sname + "-" + num)){
                             num++;
                         }
-                        hmwkDict[hno].Add(string.Format("{0}-{1}", sname, num), homework);
+                        hmwkDict[hno].Add(sname + "-" + num, homework);
                     }
                 }
             }
-            //排序
+            //排序dict
             //stuDict = from stuObj in stuDict orderby stuObj.Key ascending select stuObj;
             stuDict = stuDict.OrderBy(o => o.Key).ToDictionary(o => o.Key, p => p.Value);
             hmwkDict = hmwkDict.OrderBy(o => o.Key).ToDictionary(o => o.Key, p => p.Value);
@@ -142,7 +144,7 @@ namespace EmailHomeworkSystem.Controller {
         /// 从数据库获取分数并存储到Hmwk中
         /// </summary>
         private void SearchScoreAndStore() {
-            var scores = DBOptionHelper.GetScores();
+            var scores = DBOptionHelper.GetScores(); //sname, hno, score
             foreach (var item in scores) {
                 stuDict[item.Item1][item.Item2].Score = item.Item3;
             }

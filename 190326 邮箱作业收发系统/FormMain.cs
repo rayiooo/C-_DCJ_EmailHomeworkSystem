@@ -60,7 +60,7 @@ namespace EmailHomeworkSystem {
         /// </summary>
         /// 
         private void btnStu_Click(object sender, EventArgs e) {
-            btnStu.BackColor = SystemColors.ActiveBorder;
+            btnStu.BackColor = SystemColors.Menu;
             btnHmwk.BackColor = SystemColors.Window;
             folderController.SetRoot("group:\\sname");
             listViewController.Show("group:\\sname");
@@ -70,7 +70,7 @@ namespace EmailHomeworkSystem {
         /// </summary>
         private void btnHmwk_Click(object sender, EventArgs e) {
             btnStu.BackColor = SystemColors.Window;
-            btnHmwk.BackColor = SystemColors.ActiveBorder;
+            btnHmwk.BackColor = SystemColors.Menu;
             folderController.SetRoot("group:\\hno");
             listViewController.Show("group:\\hno");
         }
