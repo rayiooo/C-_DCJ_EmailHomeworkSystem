@@ -97,7 +97,7 @@ namespace CppRunningHelper {
                     sb.Append(" ");
                     sb.Append(str);
                 }
-                Console.WriteLine(Cmd.Cl(folder, sb.ToString()));
+                Cmd.CL(folder, sb.ToString());
                 return true;
             } catch (Exception e) {
                 Console.WriteLine(e.Message);
@@ -111,7 +111,13 @@ namespace CppRunningHelper {
         public static bool Run(string folder) {
             FileInfo file = _GetExeFile(folder);
             if(file != null) {
-                Process.Start(file.FullName);
+                string bat = file.Name + Environment.NewLine + "pause";
+                File.WriteAllText(file.DirectoryName + "\\run.bat", bat);
+                ProcessStartInfo start = new ProcessStartInfo() {
+                    FileName = file.DirectoryName + "\\run.bat",
+                    WorkingDirectory = file.DirectoryName,
+                };
+                Process p = Process.Start(start);
                 return true;
             }
             return false;
