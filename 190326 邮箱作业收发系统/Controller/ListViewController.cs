@@ -78,7 +78,7 @@ namespace EmailHomeworkSystem.Controller {
                         item.ImageIndex = 5;
                     } else if (file.Name.EndsWith(".zip")) {
                         item.ImageIndex = 6;
-                    } else if (file.Name.EndsWith(".obj") || file.Name.EndsWith(".exe") || file.Name.Equals("ut")) {
+                    } else if (file.Name.EndsWith(".obj") || file.Name.EndsWith(".exe") || file.Name.EndsWith(".bat") || file.Name.Equals("ut")) {
                         continue;
                     } else {
                         item.ImageIndex = 3;

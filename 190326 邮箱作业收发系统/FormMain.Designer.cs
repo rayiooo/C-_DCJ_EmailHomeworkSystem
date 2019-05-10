@@ -169,6 +169,7 @@
             // 
             // btnHmwk
             // 
+            this.btnHmwk.BackColor = System.Drawing.SystemColors.Window;
             this.btnHmwk.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnHmwk.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnHmwk.Location = new System.Drawing.Point(3, 56);
@@ -176,7 +177,7 @@
             this.btnHmwk.Size = new System.Drawing.Size(173, 47);
             this.btnHmwk.TabIndex = 1;
             this.btnHmwk.Text = "按作业分类";
-            this.btnHmwk.UseVisualStyleBackColor = true;
+            this.btnHmwk.UseVisualStyleBackColor = false;
             this.btnHmwk.Click += new System.EventHandler(this.btnHmwk_Click);
             // 
             // btnStu

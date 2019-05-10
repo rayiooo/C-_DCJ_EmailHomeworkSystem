@@ -41,7 +41,14 @@ namespace EmailHomeworkSystem.Controller {
         public string GoParentPath() {
             if (_relativePath == "")
                 return _root;
-            _relativePath = Directory.GetParent(_root + _relativePath).FullName.Replace(_root, "");
+            if (_root.StartsWith("group:\\")) {
+                int index = _relativePath.Length - 1;
+                while(_relativePath[index] != '\\')
+                    index--;
+                _relativePath = _relativePath.Substring(0, index);
+            } else {
+                _relativePath = Directory.GetParent(_root + _relativePath).FullName.Replace(_root, "");
+            }
             return _root + _relativePath;
         }
 

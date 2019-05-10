@@ -3,6 +3,7 @@ using EmailHomeworkSystem.Controller;
 using System.Windows.Forms;
 using EmailHomeworkSystem.Properties;
 using EmailHomeworkSystem.Database;
+using System.Drawing;
 
 namespace EmailHomeworkSystem {
     public partial class FormMain : Form {
@@ -15,6 +16,7 @@ namespace EmailHomeworkSystem {
             InitializeComponent();
             InitializeController();
             InitializeSettings();
+            btnStu_Click(null, null);
         }
 
         //**************************初始化******************************
@@ -41,9 +43,16 @@ namespace EmailHomeworkSystem {
 
 
         //***************************界面点击事件****************************
-        
+
+        /// <summary>
+        /// 返回键
+        /// </summary>
         private void btnFolderBack_MouseUp(object sender, MouseEventArgs e) {
-            listViewController.Import(folderController.GoParentPath());
+            if (folderController.GetRoot().StartsWith("group:\\")) {
+                listViewController.Show(folderController.GoParentPath());
+            } else {
+                listViewController.Import(folderController.GoParentPath());
+            }
             this.btnFolderBack.Enabled = folderController.IsRoot() ? false : true;
         }
         /// <summary>
@@ -51,16 +60,22 @@ namespace EmailHomeworkSystem {
         /// </summary>
         /// 
         private void btnStu_Click(object sender, EventArgs e) {
+            btnStu.BackColor = SystemColors.ActiveBorder;
+            btnHmwk.BackColor = SystemColors.Window;
+            folderController.SetRoot("group:\\sname");
             listViewController.Show("group:\\sname");
         }
         /// <summary>
         /// 按作业分类
         /// </summary>
         private void btnHmwk_Click(object sender, EventArgs e) {
+            btnStu.BackColor = SystemColors.Window;
+            btnHmwk.BackColor = SystemColors.ActiveBorder;
+            folderController.SetRoot("group:\\hno");
             listViewController.Show("group:\\hno");
         }
         /// <summary>
-        /// 仅查看未批改
+        /// 仅查看未批改 TODO
         /// </summary>
         private void btnHaveNotRead_Click(object sender, EventArgs e) {
 
@@ -75,7 +90,7 @@ namespace EmailHomeworkSystem {
                 if (item.ImageIndex == 0) { //如果是文件夹
                     if (item.SubItems[4].Text.StartsWith("group:\\")) {
                         //分类展示
-                        listViewController.Show(item.SubItems[4].Text);
+                        listViewController.Show(folderController.GoChildPath(item.SubItems[4].Text.Replace(folderController.GetFullPath() + "\\", "")));
                     } else if (item.SubItems[4].Text.StartsWith("project:\\")) {
                         //打开项目
                         FormCodeView formCV = new FormCodeView();
