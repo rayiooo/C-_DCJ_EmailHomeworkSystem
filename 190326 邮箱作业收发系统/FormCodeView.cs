@@ -62,10 +62,10 @@ namespace EmailHomeworkSystem {
         /// 编译运行
         /// </summary>
         private void btnRun_Click(object sender, EventArgs e) {
-            if (!CppHelper.Compile(_fileinfo.Directory.FullName)) {
+            if (!CppHelper.Compile(folderController.GetRoot())) {
                 MessageBox.Show("编译失败！", "Warning");
             }
-            if (!CppHelper.Run(_fileinfo.Directory.FullName)) {
+            if (!CppHelper.Run(folderController.GetRoot())) {
                 MessageBox.Show("运行失败！", "Warning");
             }
             //if (!CppHelper.Clean(fileinfo.Directory.FullName)) {

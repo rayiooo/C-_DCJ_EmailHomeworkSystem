@@ -8,15 +8,15 @@ using System.Windows.Forms;
 
 namespace EmailHomeworkSystem.Controller {
     public class ListViewController {
-        private bool haveSearchedChildAndGroup;
-        private string _folder;
+        private bool mHaveSearchedChildAndGroup;
+        private string mFolder;
         private ListView lv;
-        public Dictionary<string, List<Hmwk>> hmwkDict = new Dictionary<string, List<Hmwk>>(); //存储按作业号分类的文件夹目录
-        public Dictionary<string, List<Hmwk>> stuDict = new Dictionary<string, List<Hmwk>>(); //存储按学生姓名分类的文件夹目录
+        public Dictionary<string, Dictionary<string, Hmwk>> hmwkDict; //存储按作业号分类的文件夹目录
+        public Dictionary<string, Dictionary<string, Hmwk>> stuDict; //存储按学生姓名分类的文件夹目录
 
         public ListViewController(ListView lv) {
             this.lv = lv;
-            this.haveSearchedChildAndGroup = false;
+            this.mHaveSearchedChildAndGroup = false;
             //设置列头
             ColumnHeader[] chs = new ColumnHeader[] {
                 new ColumnHeader() {
@@ -53,7 +53,7 @@ namespace EmailHomeworkSystem.Controller {
         /// </summary>
         /// <param name="folderPath">目录全名</param>
         public void Import(string folder, bool backItem = false) {
-            this._folder = folder;
+            this.mFolder = folder;
             Log.D(string.Format("当前目录：{0}", folder));
             lv.BeginUpdate();
             lv.Items.Clear();
@@ -93,26 +93,59 @@ namespace EmailHomeworkSystem.Controller {
         /// 搜索子文件夹并分类存储至HashMap
         /// </summary>
         public void SearchChildAndGroup() {
-            DirectoryInfo rootInfo = new DirectoryInfo(_folder);
+            hmwkDict = new Dictionary<string, Dictionary<string, Hmwk>>();
+            stuDict = new Dictionary<string, Dictionary<string, Hmwk>>();
+
+            DirectoryInfo rootInfo = new DirectoryInfo(mFolder);
             foreach(DirectoryInfo i in rootInfo.GetDirectories()) { //按姓名
-                string sname = Base.GetChinese(i.Name);
+                string sname = Base.GetChinese(i.Name); //"001-张三"只取"张三"
+
                 foreach (DirectoryInfo j in i.GetDirectories()) { //按作业
                     string hno = j.Name.ToUpper().Split('-')[0];
                     Hmwk homework = new Hmwk(sname, j.Name.ToUpper(), j);
                     if (!stuDict.ContainsKey(sname)) {
-                        stuDict.Add(sname, new List<Hmwk>());
+                        stuDict.Add(sname, new Dictionary<string, Hmwk>());
                     }
                     if (!hmwkDict.ContainsKey(hno)) {
-                        hmwkDict.Add(hno, new List<Hmwk>());
+                        hmwkDict.Add(hno, new Dictionary<string, Hmwk>());
                     }
-                    stuDict[sname].Add(homework);
-                    hmwkDict[hno].Add(homework);
+                    stuDict[sname].Add(j.Name.ToUpper(), homework);
+                    if (!hmwkDict[hno].ContainsKey(sname)) {
+                        hmwkDict[hno].Add(sname, homework);
+                    } else {
+                        int num = 1;
+                        while (hmwkDict[hno].ContainsKey(sname + "-" + num)){
+                            num++;
+                        }
+                        hmwkDict[hno].Add(string.Format("{0}-{1}", sname, num), homework);
+                    }
                 }
             }
-            //stuDict = from stuObj in stuDict orderby stuObj.Key select stuObj;
+            //排序
+            //stuDict = from stuObj in stuDict orderby stuObj.Key ascending select stuObj;
             stuDict = stuDict.OrderBy(o => o.Key).ToDictionary(o => o.Key, p => p.Value);
             hmwkDict = hmwkDict.OrderBy(o => o.Key).ToDictionary(o => o.Key, p => p.Value);
-            haveSearchedChildAndGroup = true;
+            for(int i = 0; i < stuDict.Keys.Count; i++) {
+                string key = stuDict.Keys.ElementAt(i);
+                stuDict[key] = stuDict[key].OrderBy(o => o.Key).ToDictionary(o => o.Key, p => p.Value);
+            }
+            for (int i = 0; i < hmwkDict.Keys.Count; i++) {
+                string key = hmwkDict.Keys.ElementAt(i);
+                hmwkDict[key] = hmwkDict[key].OrderBy(o => o.Key).ToDictionary(o => o.Key, p => p.Value);
+            }
+            //获取分数
+            SearchScoreAndStore();
+            mHaveSearchedChildAndGroup = true;
+        }
+
+        /// <summary>
+        /// 从数据库获取分数并存储到Hmwk中
+        /// </summary>
+        private void SearchScoreAndStore() {
+            var scores = DBOptionHelper.GetScores();
+            foreach (var item in scores) {
+                stuDict[item.Item1][item.Item2].Score = item.Item3;
+            }
         }
 
         /// <summary>
@@ -125,7 +158,7 @@ namespace EmailHomeworkSystem.Controller {
                 Log.W("路径格式错误！必须以“group:\\”格式开头。");
                 return;
             }
-            if (!haveSearchedChildAndGroup) {
+            if (!mHaveSearchedChildAndGroup) {
                 SearchChildAndGroup();
             }
 
@@ -148,7 +181,7 @@ namespace EmailHomeworkSystem.Controller {
                         lv.Items.Add(item);
                     }
                 } else if (menu.Length == 2) {
-                    foreach(Hmwk h in stuDict[menu[1]]) { //按学生分类二级目录
+                    foreach(Hmwk h in stuDict[menu[1]].Values) { //按学生分类二级目录
                         var item = new ListViewItem(new string[] {
                             h.Hno,
                             h.Sname,
@@ -172,7 +205,7 @@ namespace EmailHomeworkSystem.Controller {
                         lv.Items.Add(item);
                     }
                 } else if (menu.Length == 2) {
-                    foreach (Hmwk h in hmwkDict[menu[1]]) { //按作业号分类二级目录
+                    foreach (Hmwk h in hmwkDict[menu[1]].Values) { //按作业号分类二级目录
                         var item = new ListViewItem(new string[] {
                             h.Sname,
                             h.Sname,
@@ -200,7 +233,8 @@ namespace EmailHomeworkSystem.Controller {
             this.Hno = hno;
             this.Sname = name;
             this.Dir = dir;
-            this.Score = DBOptionHelper.GetScore(Sname, Hno);
+            this.Score = -1;
+            //this.Score = DBOptionHelper.GetScore(Sname, Hno);
         }
     }
 }

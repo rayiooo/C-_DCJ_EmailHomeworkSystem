@@ -1,5 +1,6 @@
 ﻿using EmailHomeworkSystem.BaseLib;
 using System;
+using System.Collections.Generic;
 using System.Data.SQLite;
 using System.IO;
 using System.Text;
@@ -90,6 +91,31 @@ namespace EmailHomeworkSystem.Database {
                     } catch (Exception ex) {
                         Log.E("获取作业分数时发生异常：" + ex.Message);
                     }
+                }
+            }
+            return ret;
+        }
+
+        /// <summary>
+        /// 获取整张score表
+        /// </summary>
+        /// <returns></returns>
+        public static List<Tuple<string, string, int>> GetScores() {
+            if (dbPath == null)
+                return new List<Tuple<string, string, int>>();
+            var ret = new List<Tuple<string, string, int>>();
+            var sh = new SqLiteHelper(dbPath);
+            using(SQLiteDataReader dr = sh.ReadFullTable("score")) {
+                while (dr.Read()) {
+                    string sname = dr["sname"].ToString();
+                    string hno = dr["hno"].ToString();
+                    int score = -1;
+                    try {
+                        score = int.Parse(dr["score"].ToString());
+                    } catch (Exception ex) {
+                        Log.E("获取作业分数时发生异常：" + ex.Message);
+                    }
+                    ret.Add(new Tuple<string, string, int>(sname, hno, score));
                 }
             }
             return ret;

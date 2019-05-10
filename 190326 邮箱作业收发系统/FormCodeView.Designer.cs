@@ -128,8 +128,6 @@
             this.codeEditor.Name = "codeEditor";
             this.codeEditor.Size = new System.Drawing.Size(888, 622);
             this.codeEditor.TabIndex = 3;
-            this.codeEditor.Text = "#include <iostream>;\r\nusing namespace std;\r\nint main(){\r\n    cout << \"hello world" +
-    "!\" << endl;\r\n}";
             // 
             // fileListView
             // 
