@@ -29,6 +29,7 @@
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.btnRun = new System.Windows.Forms.PictureBox();
             this.btnSave = new System.Windows.Forms.PictureBox();
+            this.btnScore = new System.Windows.Forms.Button();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.codeEditor = new ICSharpCode.TextEditor.TextEditorControl();
             this.fileListView = new System.Windows.Forms.ListView();
@@ -63,6 +64,7 @@
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 999F));
             this.tableLayoutPanel2.Controls.Add(this.btnRun, 1, 0);
             this.tableLayoutPanel2.Controls.Add(this.btnSave, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.btnScore, 2, 0);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(0);
@@ -103,6 +105,17 @@
             this.btnSave.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnSave_MouseDown);
             this.btnSave.MouseLeave += new System.EventHandler(this.btnSave_MouseLeave);
             this.btnSave.MouseMove += new System.Windows.Forms.MouseEventHandler(this.btnSave_MouseMove);
+            // 
+            // btnScore
+            // 
+            this.btnScore.Dock = System.Windows.Forms.DockStyle.Right;
+            this.btnScore.Location = new System.Drawing.Point(990, 3);
+            this.btnScore.Name = "btnScore";
+            this.btnScore.Size = new System.Drawing.Size(90, 36);
+            this.btnScore.TabIndex = 2;
+            this.btnScore.Text = "▙ 评 分";
+            this.btnScore.UseVisualStyleBackColor = true;
+            this.btnScore.Click += new System.EventHandler(this.btnScore_Click);
             // 
             // tableLayoutPanel3
             // 
@@ -181,5 +194,6 @@
         private ICSharpCode.TextEditor.TextEditorControl codeEditor;
         private System.Windows.Forms.ListView fileListView;
         public System.Windows.Forms.ImageList fileIconImageList;
+        private System.Windows.Forms.Button btnScore;
     }
 }

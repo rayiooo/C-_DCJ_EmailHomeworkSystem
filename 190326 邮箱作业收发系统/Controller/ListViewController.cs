@@ -13,6 +13,7 @@ namespace EmailHomeworkSystem.Controller {
         private ListView lv;
         public Dictionary<string, Dictionary<string, Hmwk>> hmwkDict; //存储按作业号分类的文件夹目录
         public Dictionary<string, Dictionary<string, Hmwk>> stuDict; //存储按学生姓名分类的文件夹目录
+        public Dictionary<string, string> stuInfo; //学生sname-sno
 
         public ListViewController(ListView lv) {
             this.lv = lv;
@@ -95,14 +96,18 @@ namespace EmailHomeworkSystem.Controller {
         public void SearchChildAndGroup() {
             hmwkDict = new Dictionary<string, Dictionary<string, Hmwk>>();
             stuDict = new Dictionary<string, Dictionary<string, Hmwk>>();
+            stuInfo = new Dictionary<string, string>();
 
+            //获取学生信息
+            SearchStudentInfoAndStore();
+            //构建字典
             DirectoryInfo rootInfo = new DirectoryInfo(mFolder);
             foreach(DirectoryInfo i in rootInfo.GetDirectories()) { //按姓名
                 string sname = Base.GetChinese(i.Name); //"001-张三"只取"张三"
 
                 foreach (DirectoryInfo j in i.GetDirectories()) { //按作业
                     string hno = j.Name.ToUpper().Split('-')[0];
-                    Hmwk homework = new Hmwk(sname, j.Name.ToUpper(), j);
+                    Hmwk homework = new Hmwk(stuInfo[sname], sname, j.Name.ToUpper(), j);
                     //初始化
                     if (!stuDict.ContainsKey(sname)) {
                         stuDict.Add(sname, new Dictionary<string, Hmwk>());
@@ -148,6 +153,13 @@ namespace EmailHomeworkSystem.Controller {
             foreach (var item in scores) {
                 stuDict[item.Item1][item.Item2].Score = item.Item3;
             }
+        }
+
+        /// <summary>
+        /// 从数据库获取学生信息并存储到stuInfo中
+        /// </summary>
+        private void SearchStudentInfoAndStore() {
+            stuInfo = DBOptionHelper.GetStudents();
         }
 
         /// <summary>
@@ -229,11 +241,13 @@ namespace EmailHomeworkSystem.Controller {
         public int Score { get; set; }
         public string Hno { get; set; }
         public string Sname { get; set; }
+        public string Sno { get; set; }
         public DirectoryInfo Dir { get; set; }
 
-        public Hmwk(string name, string hno, DirectoryInfo dir) {
+        public Hmwk(string sno, string sname, string hno, DirectoryInfo dir) {
+            this.Sno = sno;
+            this.Sname = sname;
             this.Hno = hno;
-            this.Sname = name;
             this.Dir = dir;
             this.Score = -1;
             //this.Score = DBOptionHelper.GetScore(Sname, Hno);

@@ -1,4 +1,5 @@
 ﻿using EmailHomeworkSystem.BaseLib;
+using EmailHomeworkSystem.Controller;
 using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
@@ -80,7 +81,6 @@ namespace EmailHomeworkSystem.Database {
         public static int GetScore(string sname, string hno) {
             if (dbPath == null) {
                 throw new FileNotFoundException("不存在DB文件sqlite.db！");
-                //return -3;
             }
             string sql = string.Format("SELECT score FROM score " +
                 "WHERE sno=(SELECT sno FROM student WHERE sname=\"{0}\") AND hno=\"{1}\"", sname, hno);
@@ -106,7 +106,6 @@ namespace EmailHomeworkSystem.Database {
         public static List<Tuple<string, string, int>> GetScores() {
             if (dbPath == null) {
                 throw new FileNotFoundException("不存在DB文件sqlite.db！");
-                //return new List<Tuple<string, string, int>>();
             }
             var ret = new List<Tuple<string, string, int>>();
             var sh = new SqLiteHelper(dbPath);
@@ -127,20 +126,40 @@ namespace EmailHomeworkSystem.Database {
             return ret;
         }
 
+        public static Dictionary<string, string> GetStudents() {
+            if (dbPath == null) {
+                throw new FileNotFoundException("不存在DB文件sqlite.db！");
+            }
+            var ret = new Dictionary<string, string>();
+            var sh = new SqLiteHelper(dbPath);
+            using (SQLiteDataReader dr = sh.ReadFullTable("student")) {
+                while (dr.Read()) {
+                    string sname = dr["sname"].ToString();
+                    string sno = dr["sno"].ToString();
+                    ret.Add(sname, sno);
+                }
+            }
+            sh.CloseConnection();
+            return ret;
+        }
+
         /// <summary>
         /// 置分数（待验）
         /// </summary>
         /// <param name="sname"></param>
         /// <param name="hno"></param>
         /// <param name="score"></param>
-        public static void SetScore(string sname, string hno, int score) {
-            int oldScore = GetScore(sname, hno);
+        public static void SetScore(Hmwk h, int score) {
+            if (dbPath == null) {
+                throw new FileNotFoundException("不存在DB文件sqlite.db！");
+            }
+            int oldScore = h.Score;
             var sh = new SqLiteHelper(dbPath);
             if (oldScore == -2) { //不存在的分数条目
-                sh.InsertValues("score", new string[]{ "(SELECT sno FROM student WHERE sname='" + sname + "')", hno, "0", score.ToString()});
+                sh.InsertValues("score", new string[]{ h.Sno, h.Hno, "0", score.ToString()});
             } else {
-                sh.ExecuteQuery(string.Format("UPDATE score SET score={0} WHERE sno={1} AND hno={2}",
-                    score.ToString(), "(SELECT sno FROM student WHERE sname='" + sname + "')", "'" + hno + "'"));
+                sh.ExecuteQuery(string.Format("UPDATE score SET score={0} WHERE sno='{1}' AND hno='{2}'",
+                    score.ToString(), h.Sno, h.Hno));
             }
             sh.CloseConnection();
         }

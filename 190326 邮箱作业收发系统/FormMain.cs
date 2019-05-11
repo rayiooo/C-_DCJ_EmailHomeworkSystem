@@ -94,6 +94,7 @@ namespace EmailHomeworkSystem {
                     } else if (item.SubItems[4].Text.StartsWith("project:\\")) {
                         //打开项目
                         FormCodeView formCV = new FormCodeView();
+                        formCV.LoadHmwk(listViewController.stuDict[item.SubItems[1].Text][item.SubItems[2].Text]);
                         formCV.OpenFolder(item.SubItems[4].Text.Replace("project:\\", ""));
                         formCV.Show(this);
                     } else {
@@ -109,11 +110,7 @@ namespace EmailHomeworkSystem {
                 this.btnFolderBack.Enabled = folderController.IsRoot() ? false : true;
             }
         }
-
-        private void 选项ToolStripMenuItem_Click(object sender, EventArgs e) {
-            Form settingsForm = new FormSettings();
-            settingsForm.Show(this);
-        }
+        
         private void 导入ToolStripMenuItem_Click(object sender, EventArgs e) {
             if(this.folderBrowserDialog.ShowDialog() == DialogResult.OK) {
                 folderController.SetRoot(folderBrowserDialog.SelectedPath);

@@ -17,7 +17,6 @@ namespace EmailHomeworkSystem.Database {
                 dbConnection = new SQLiteConnection("data source=" + connectionString + ";UseUTF16Encoding=True;");
                 dbConnection.Open();
             } catch (Exception ex) {
-
                 Console.WriteLine(ex.Message);
             }
         }

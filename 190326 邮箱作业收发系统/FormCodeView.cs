@@ -13,6 +13,7 @@ namespace EmailHomeworkSystem {
         public FolderController folderController;
         public ListViewController listViewController;
         private FileInfo _fileinfo;
+        private Hmwk mHmwk;
 
         public FormCodeView() {
             InitializeComponent();
@@ -34,6 +35,10 @@ namespace EmailHomeworkSystem {
         }
 
         //----------------------------功能操作----------------------------
+
+        public void LoadHmwk(Hmwk hmwk) {
+            mHmwk = hmwk;
+        }
 
         /// <summary>
         /// 打开一个文件并展示在codeEditor中
@@ -86,6 +91,15 @@ namespace EmailHomeworkSystem {
                 MessageBox.Show(string.Format("保存文件时发生异常：{0}", ex.Message), "异常", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+        /// <summary>
+        /// 评分TODO
+        /// </summary>
+        private void btnScore_Click(object sender, EventArgs e) {
+            var fs = new FormScore();
+            fs.LoadDetail(mHmwk);
+            fs.Show(this);
+        }
+
         private void btnSave_MouseMove(object sender, MouseEventArgs e) {
             btnSave.BackColor = Color.LightBlue;
         }
