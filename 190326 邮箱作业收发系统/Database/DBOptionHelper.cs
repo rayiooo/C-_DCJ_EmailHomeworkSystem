@@ -12,26 +12,6 @@ namespace EmailHomeworkSystem.Database {
         private static string rootPath;
 
         /// <summary>
-        /// 从students.txt中读取学生信息并写入到数据库中
-        /// </summary>
-        private static void _ReadStudents() {
-            if (!File.Exists(rootPath + "\\students.txt")) {
-                throw new FileNotFoundException("学生信息文件students.txt不存在！");
-            }
-            string[] students = File.ReadAllLines(rootPath + "\\students.txt");
-            SqLiteHelper sh = new SqLiteHelper(dbPath);
-            foreach (string item in students) {
-                if (item.Length == 0)
-                    continue;
-                string[] stu = item.Split('\t');
-                if (stu.Length == 2) {
-                    sh.InsertValues("student", new string[] { stu[0].Trim(), stu[1].Trim() });
-                }
-            }
-            sh.CloseConnection();
-        }
-
-        /// <summary>
         /// 初始化数据库路径，如果没有就创建一个
         /// </summary>
         /// <param name="root">数据库根目录文件夹</param>
@@ -39,6 +19,7 @@ namespace EmailHomeworkSystem.Database {
             rootPath = root;
             dbPath = root + "\\sqlite.db";
             if (!File.Exists(dbPath)) {
+                Log.D("DBOptionHelper.Initialize: initializing db.");
                 //创建文件
                 SqLiteHelper.NewDbFile(dbPath);
                 //添加表
@@ -68,8 +49,32 @@ namespace EmailHomeworkSystem.Database {
                 sh.ExecuteQuery(query.ToString());
                 sh.CloseConnection();
                 //读取信息
-                _ReadStudents();
+                ReadAndStoreStudents();
             }
+        }
+
+        /// <summary>
+        /// 从students.txt中读取学生信息并写入到数据库中
+        /// </summary>
+        private static void ReadAndStoreStudents() {
+            if (!File.Exists(rootPath + "\\students.txt")) {
+                throw new FileNotFoundException("学生信息文件students.txt不存在！");
+            }
+            Log.D("DBOptionHelper.ReadAndStoreStudents: storing students' information.");
+            string[] students = File.ReadAllLines(rootPath + "\\students.txt", Encoding.Default);
+            SqLiteHelper sh = new SqLiteHelper(dbPath);
+            foreach (string item in students) {
+                if (item.Length == 0)
+                    continue;
+                string[] stu = item.Split('\t');
+                if (stu.Length == 2) {
+                    string sno = stu[0].Trim(), sname = Base.ConvertSimplifiedChinese(stu[1].Trim());
+                    int count = sh.Count(string.Format("SELECT * FROM student WHERE sno='{0}'", sno));
+                    if (count == 0)
+                        sh.InsertValues("student", new string[] { sno, sname }); //sno, sname
+                }
+            }
+            sh.CloseConnection();
         }
 
         /// <summary>
@@ -83,7 +88,7 @@ namespace EmailHomeworkSystem.Database {
                 throw new FileNotFoundException("不存在DB文件sqlite.db！");
             }
             string sql = string.Format("SELECT score FROM score " +
-                "WHERE sno=(SELECT sno FROM student WHERE sname=\"{0}\") AND hno=\"{1}\"", sname, hno);
+                "WHERE sno=(SELECT sno FROM student WHERE sname=\"{0}\") AND hno=\"{1}\"", Base.ConvertSimplifiedChinese(sname), hno);
             int ret = -2;
             SqLiteHelper sh = new SqLiteHelper(dbPath);
             using(SQLiteDataReader dr = sh.ExecuteQuery(sql)) {
@@ -126,6 +131,10 @@ namespace EmailHomeworkSystem.Database {
             return ret;
         }
 
+        /// <summary>
+        /// 获取学生信息列表Dict<sname, sno>
+        /// </summary>
+        /// <returns></returns>
         public static Dictionary<string, string> GetStudents() {
             if (dbPath == null) {
                 throw new FileNotFoundException("不存在DB文件sqlite.db！");
@@ -146,18 +155,19 @@ namespace EmailHomeworkSystem.Database {
         /// <summary>
         /// 置分数（待验）
         /// </summary>
-        /// <param name="sname"></param>
-        /// <param name="hno"></param>
-        /// <param name="score"></param>
         public static void SetScore(Hmwk h, int score) {
             if (dbPath == null) {
                 throw new FileNotFoundException("不存在DB文件sqlite.db！");
             }
+
+            Log.D("DBOptionHelper.SetScore: start.");
             int oldScore = h.Score;
             var sh = new SqLiteHelper(dbPath);
-            if (oldScore == -2) { //不存在的分数条目
+            if (oldScore < 0) { //不存在的分数条目
+                Log.D("DBOptionHelper.SetScore: score info not exist, creating...");
                 sh.InsertValues("score", new string[]{ h.Sno, h.Hno, "0", score.ToString()});
             } else {
+                Log.D("DBOptionHelper.SetScore: score info exist, updating...");
                 sh.ExecuteQuery(string.Format("UPDATE score SET score={0} WHERE sno='{1}' AND hno='{2}'",
                     score.ToString(), h.Sno, h.Hno));
             }

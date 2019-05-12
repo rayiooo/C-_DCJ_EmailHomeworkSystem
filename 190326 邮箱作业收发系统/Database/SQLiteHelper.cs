@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EmailHomeworkSystem.BaseLib;
+using System;
 using System.Data.SQLite;
 
 namespace EmailHomeworkSystem.Database {
@@ -14,7 +15,7 @@ namespace EmailHomeworkSystem.Database {
         /// <param name="connectionString"></param>
         public SqLiteHelper(string connectionString) {
             try {
-                dbConnection = new SQLiteConnection("data source=" + connectionString + ";UseUTF16Encoding=True;");
+                dbConnection = new SQLiteConnection("data source=" + connectionString);
                 dbConnection.Open();
             } catch (Exception ex) {
                 Console.WriteLine(ex.Message);
@@ -44,7 +45,7 @@ namespace EmailHomeworkSystem.Database {
         /// <param name="queryString"></param>
         /// <returns></returns>
         public SQLiteDataReader ExecuteQuery(string queryString) {
-
+            Log.D("SQLiteHelper.ExecuteQuery: " + queryString);
             try {
                 dbCommand = dbConnection.CreateCommand();
                 dbCommand.CommandText = queryString;
@@ -144,8 +145,21 @@ namespace EmailHomeworkSystem.Database {
             }
             queryString += "WHWERE " + key + operation + "'" + value + "'";
             return ExecuteQuery(queryString);
+        }
 
-
+        /// <summary>
+        /// 计数query取到的数据数
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns></returns>
+        public int Count(string query) {
+            int ret = 0;
+            using (var reader = ExecuteQuery(query)) {
+                while (reader.Read()) {
+                    ret++;
+                }
+            }
+            return ret;
         }
 
         /// <summary>

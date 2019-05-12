@@ -103,7 +103,7 @@ namespace EmailHomeworkSystem.Controller {
             //构建字典
             DirectoryInfo rootInfo = new DirectoryInfo(mFolder);
             foreach(DirectoryInfo i in rootInfo.GetDirectories()) { //按姓名
-                string sname = Base.GetChinese(i.Name); //"001-张三"只取"张三"
+                string sname = Base.ConvertSimplifiedChinese(Base.GetChinese(i.Name)); //"001-张三"只取"张三"
 
                 foreach (DirectoryInfo j in i.GetDirectories()) { //按作业
                     string hno = j.Name.ToUpper().Split('-')[0];
@@ -186,10 +186,7 @@ namespace EmailHomeworkSystem.Controller {
                 if (menu.Length == 1) {
                     foreach(string str in stuDict.Keys) { //按学生分类
                         var item = new ListViewItem(new string[] {
-                            str,
-                            str,
-                            "",
-                            "",
+                            str, str, "", "",
                             path + "\\" + str
                         }, 0);
                         lv.Items.Add(item);
@@ -197,10 +194,7 @@ namespace EmailHomeworkSystem.Controller {
                 } else if (menu.Length == 2) {
                     foreach(Hmwk h in stuDict[menu[1]].Values) { //按学生分类二级目录
                         var item = new ListViewItem(new string[] {
-                            h.Hno,
-                            h.Sname,
-                            h.Hno,
-                            h.Score == -1 ? "" : h.Score.ToString(),
+                            h.Hno, h.Sname, h.Hno, h.Score < 0 ? "" : h.Score.ToString(),
                             "project:\\" + h.Dir.FullName
                         }, 0);
                         lv.Items.Add(item);
@@ -210,10 +204,7 @@ namespace EmailHomeworkSystem.Controller {
                 if (menu.Length == 1) { //按作业号分类
                     foreach (string str in hmwkDict.Keys) {
                         var item = new ListViewItem(new string[] {
-                            str,
-                            "",
-                            str,
-                            "",
+                            str, "", str, "",
                             path + "\\" + str
                         }, 0);
                         lv.Items.Add(item);
@@ -221,10 +212,7 @@ namespace EmailHomeworkSystem.Controller {
                 } else if (menu.Length == 2) {
                     foreach (Hmwk h in hmwkDict[menu[1]].Values) { //按作业号分类二级目录
                         var item = new ListViewItem(new string[] {
-                            h.Sname,
-                            h.Sname,
-                            h.Hno,
-                            h.Score == -1 ? "" : h.Score.ToString(),
+                            h.Sname, h.Sname, h.Hno, h.Score < 0 ? "" : h.Score.ToString(),
                             "project:\\" + h.Dir.FullName
                         }, 0);
                         lv.Items.Add(item);
@@ -249,7 +237,7 @@ namespace EmailHomeworkSystem.Controller {
             this.Sname = sname;
             this.Hno = hno;
             this.Dir = dir;
-            this.Score = -1;
+            this.Score = -2; //-1:未批改 -2:未交作业
             //this.Score = DBOptionHelper.GetScore(Sname, Hno);
         }
     }

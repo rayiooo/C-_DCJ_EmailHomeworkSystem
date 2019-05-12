@@ -32,6 +32,9 @@ namespace EmailHomeworkSystem {
                 return;
             }
             DBOptionHelper.SetScore(mHmwk, score);
+            mHmwk.Score = score;
+            Score.Text = score.ToString();
+            MessageBox.Show("打分成功。", "Success", MessageBoxButtons.OK);
         }
 
         /// <summary>

@@ -35,8 +35,8 @@ namespace EmailHomeworkSystem {
         private void InitializeSettings() {
             if(Settings.Default.FolderPath != "") {
                 folderController.SetRoot(Settings.Default.FolderPath);
-                listViewController.Import(folderController.GetFullPath());
                 DBOptionHelper.Initialize(folderController.GetRoot());
+                listViewController.Import(folderController.GetFullPath());
             }
         }
 
@@ -114,10 +114,10 @@ namespace EmailHomeworkSystem {
         private void 导入ToolStripMenuItem_Click(object sender, EventArgs e) {
             if(this.folderBrowserDialog.ShowDialog() == DialogResult.OK) {
                 folderController.SetRoot(folderBrowserDialog.SelectedPath);
+                DBOptionHelper.Initialize(folderController.GetRoot());
                 listViewController.Import(folderController.GetFullPath());
                 Settings.Default.FolderPath = folderController.GetRoot();
                 Settings.Default.Save();
-                DBOptionHelper.Initialize(folderController.GetRoot());
             }
         }
 
