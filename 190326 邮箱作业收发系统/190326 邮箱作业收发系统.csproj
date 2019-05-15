@@ -173,8 +173,9 @@
     <Content Include="Resources\icon_rar.png" />
     <Content Include="Resources\icon_txt.png" />
     <Content Include="Resources\icon_zip.png" />
-    <Content Include="Resources\run.png" />
     <Content Include="Resources\save.png" />
+    <Content Include="Resources\setscore.png" />
+    <Content Include="Resources\run.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CppRunningHelper\CppRunningHelper.csproj">

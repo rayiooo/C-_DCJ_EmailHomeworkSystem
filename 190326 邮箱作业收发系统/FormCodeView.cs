@@ -13,7 +13,7 @@ namespace EmailHomeworkSystem {
         public FolderController folderController;
         public FormMain mFormMain;
         public ListViewController listViewController;
-        private FileInfo _fileinfo;
+        private FileInfo mFileinfo;
         private Hmwk mHmwk;
 
         public FormCodeView(FormMain formMain) {
@@ -48,7 +48,7 @@ namespace EmailHomeworkSystem {
         public void OpenFile(string fileName) {
             string fileFullPath = folderController.GetChildFullPath(fileName);
             this.Text = fileFullPath;
-            _fileinfo = new FileInfo(fileFullPath);
+            mFileinfo = new FileInfo(fileFullPath);
             codeEditor.Text = File.ReadAllText(fileFullPath, Encoding.Default);
             codeEditor.Refresh(); //如果不刷新，可能会导致旧文本没有擦干净
             //textEditor.Text = FormatCode(textEditor.Text); //格式化代码
@@ -66,9 +66,25 @@ namespace EmailHomeworkSystem {
         //----------------------------界面事件----------------------------
 
         /// <summary>
+        /// 保存按钮
+        /// </summary>
+        private void TSBtnSave_Click(object sender, EventArgs e) {
+            if (mFileinfo == null) {
+                MessageBox.Show("当前没有打开任何文件，无法保存。", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            try {
+                File.WriteAllText(mFileinfo.FullName, codeEditor.Text);
+            } catch (Exception ex) {
+                MessageBox.Show(string.Format("保存文件时发生异常：{0}", ex.Message), "异常", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        /// <summary>
         /// 编译运行
         /// </summary>
-        private void btnRun_Click(object sender, EventArgs e) {
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void TSBtnRun_Click(object sender, EventArgs e) {
             if (!CppHelper.Compile(folderController.GetRoot())) {
                 MessageBox.Show("编译失败！", "Warning");
             }
@@ -80,46 +96,12 @@ namespace EmailHomeworkSystem {
             //}
         }
         /// <summary>
-        /// 保存文件
+        /// 评分按钮
         /// </summary>
-        private void btnSave_Click(object sender, EventArgs e) {
-            if (_fileinfo == null) {
-                MessageBox.Show("当前没有打开任何文件，无法保存。", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-            try {
-                File.WriteAllText(_fileinfo.FullName, codeEditor.Text);
-            } catch (Exception ex) {
-                MessageBox.Show(string.Format("保存文件时发生异常：{0}", ex.Message), "异常", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-        /// <summary>
-        /// 评分TODO
-        /// </summary>
-        private void btnScore_Click(object sender, EventArgs e) {
+        private void TSBtnSetScore_Click(object sender, EventArgs e) {
             var fs = new FormScore(this);
             fs.LoadDetail(mHmwk);
             fs.Show(this);
-        }
-
-        private void btnSave_MouseMove(object sender, MouseEventArgs e) {
-            btnSave.BackColor = Color.LightBlue;
-        }
-        private void btnSave_MouseLeave(object sender, EventArgs e) {
-            btnSave.BackColor = Color.Transparent;
-        }
-        private void btnSave_MouseDown(object sender, MouseEventArgs e) {
-            btnSave.BackColor = Color.SkyBlue;
-        }
-
-        private void btnRun_MouseMove(object sender, MouseEventArgs e) {
-            btnRun.BackColor = Color.LightBlue;
-        }
-        private void btnRun_MouseLeave(object sender, EventArgs e) {
-            btnRun.BackColor = Color.Transparent;
-        }
-        private void btnRun_MouseDown(object sender, MouseEventArgs e) {
-            btnRun.BackColor = Color.SkyBlue;
         }
 
         private void fileListView_MouseDoubleClick(object sender, MouseEventArgs e) {
