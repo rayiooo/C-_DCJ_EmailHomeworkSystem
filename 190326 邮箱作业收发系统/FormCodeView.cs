@@ -11,11 +11,13 @@ using System.Windows.Forms;
 namespace EmailHomeworkSystem {
     public partial class FormCodeView : Form {
         public FolderController folderController;
+        public FormMain mFormMain;
         public ListViewController listViewController;
         private FileInfo _fileinfo;
         private Hmwk mHmwk;
 
-        public FormCodeView() {
+        public FormCodeView(FormMain formMain) {
+            mFormMain = formMain;
             InitializeComponent();
             InitializeUI();
             InitializeController();
@@ -95,7 +97,7 @@ namespace EmailHomeworkSystem {
         /// 评分TODO
         /// </summary>
         private void btnScore_Click(object sender, EventArgs e) {
-            var fs = new FormScore();
+            var fs = new FormScore(this);
             fs.LoadDetail(mHmwk);
             fs.Show(this);
         }

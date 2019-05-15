@@ -9,7 +9,9 @@ using System.Windows.Forms;
 namespace EmailHomeworkSystem.Controller {
     public class ListViewController {
         private bool mHaveSearchedChildAndGroup;
+        private bool mHideSeen; //保存是否隐藏已批阅状态方便刷新
         private string mFolder;
+        private string mPath; //保存当前路径方便刷新
         private ListView lv;
         public Dictionary<string, Dictionary<string, Hmwk>> hmwkDict; //存储按作业号分类的文件夹目录
         public Dictionary<string, Dictionary<string, Hmwk>> stuDict; //存储按学生姓名分类的文件夹目录
@@ -88,6 +90,14 @@ namespace EmailHomeworkSystem.Controller {
                 }
             }
             lv.EndUpdate();
+        }
+
+        public void Refresh() {
+            if (mPath is null) {
+                throw new ArgumentNullException("ListViewController.Refresh: mPath is null.");
+            }
+            Log.D("ListViewController.Refresh: start.");
+            this.Show(mPath, mHideSeen);
         }
 
         /// <summary>
@@ -172,6 +182,8 @@ namespace EmailHomeworkSystem.Controller {
                 Log.W("路径格式错误！必须以“group:\\”格式开头。");
                 return;
             }
+            mPath = path;
+            mHideSeen = hideSeen;
             if (!mHaveSearchedChildAndGroup) {
                 SearchChildAndGroup();
             }

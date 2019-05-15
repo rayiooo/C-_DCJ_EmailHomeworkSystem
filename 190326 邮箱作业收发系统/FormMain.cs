@@ -93,7 +93,7 @@ namespace EmailHomeworkSystem {
                         listViewController.Show(folderController.GoChildPath(item.SubItems[4].Text.Replace(folderController.GetFullPath() + "\\", "")));
                     } else if (item.SubItems[4].Text.StartsWith("project:\\")) {
                         //打开项目
-                        FormCodeView formCV = new FormCodeView();
+                        FormCodeView formCV = new FormCodeView(this);
                         formCV.LoadHmwk(listViewController.stuDict[item.SubItems[1].Text][item.SubItems[2].Text]);
                         formCV.OpenFolder(item.SubItems[4].Text.Replace("project:\\", ""));
                         formCV.Show(this);
@@ -102,7 +102,7 @@ namespace EmailHomeworkSystem {
                         listViewController.Import(folderController.GoChildPath(item.Text));
                     }
                 } else { //如果是文件
-                    FormCodeView formCV = new FormCodeView();
+                    FormCodeView formCV = new FormCodeView(this);
                     formCV.OpenFolder(folderController.GetFullPath());
                     formCV.OpenFile(item.Text);
                     formCV.Show(this);

@@ -114,7 +114,7 @@ namespace EmailHomeworkSystem.Database {
             }
             var ret = new List<Tuple<string, string, int>>();
             var sh = new SqLiteHelper(dbPath);
-            using(SQLiteDataReader dr = sh.ReadFullTable("score")) {
+            using(SQLiteDataReader dr = sh.ExecuteQuery("SELECT * FROM student, score WHERE student.sno=score.sno")) {
                 while (dr.Read()) {
                     string sname = dr["sname"].ToString();
                     string hno = dr["hno"].ToString();

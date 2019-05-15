@@ -7,14 +7,17 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace EmailHomeworkSystem {
     public partial class FormScore : Form {
+        private FormCodeView mFormCodeView;
         private Hmwk mHmwk;
 
-        public FormScore() {
+        public FormScore(FormCodeView formCV) {
+            mFormCodeView = formCV;
             InitializeComponent();
         }
 
@@ -34,6 +37,9 @@ namespace EmailHomeworkSystem {
             DBOptionHelper.SetScore(mHmwk, score);
             mHmwk.Score = score;
             Score.Text = score.ToString();
+            Invoke(new Action(() => {
+                mFormCodeView.mFormMain.listViewController.Refresh(); //委托实现主界面UI刷新
+            }));
             MessageBox.Show("打分成功。", "Success", MessageBoxButtons.OK);
         }
 
