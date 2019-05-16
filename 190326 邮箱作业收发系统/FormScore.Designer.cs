@@ -191,6 +191,7 @@
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "FormScore";
             this.Text = "评分";
+            this.Load += new System.EventHandler(this.FormScore_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);

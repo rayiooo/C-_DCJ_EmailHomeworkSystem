@@ -169,6 +169,7 @@
     <None Include="Resources\icon_h.png" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Resources\homework.ico" />
     <Content Include="Resources\icon_nani.png" />
     <Content Include="Resources\icon_rar.png" />
     <Content Include="Resources\icon_txt.png" />

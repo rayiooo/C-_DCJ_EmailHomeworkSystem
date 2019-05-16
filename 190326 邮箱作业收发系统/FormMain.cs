@@ -11,6 +11,7 @@ namespace EmailHomeworkSystem {
         public FolderController folderController;
         public ListViewController listViewController;
         //public TreeViewController treeViewController;
+        private bool mHideSeen = false;
 
         public FormMain() {
             InitializeComponent();
@@ -53,7 +54,14 @@ namespace EmailHomeworkSystem {
             } else {
                 listViewController.Import(folderController.GoParentPath());
             }
+            LabelPath.Text = folderController.GetFullPath();
             this.btnFolderBack.Enabled = folderController.IsRoot() ? false : true;
+        }
+        /// <summary>
+        /// 刷新键
+        /// </summary>
+        private void btnFolderRefresh_Click(object sender, EventArgs e) {
+            listViewController.Refresh();
         }
         /// <summary>
         /// 按学生分类
@@ -64,6 +72,7 @@ namespace EmailHomeworkSystem {
             btnHmwk.BackColor = SystemColors.Window;
             folderController.SetRoot("group:\\sname");
             listViewController.Show("group:\\sname");
+            LabelPath.Text = folderController.GetFullPath();
         }
         /// <summary>
         /// 按作业分类
@@ -73,12 +82,25 @@ namespace EmailHomeworkSystem {
             btnHmwk.BackColor = SystemColors.Menu;
             folderController.SetRoot("group:\\hno");
             listViewController.Show("group:\\hno");
+            LabelPath.Text = folderController.GetFullPath();
         }
         /// <summary>
-        /// 仅查看未批改 TODO
+        /// 仅查看未批改
         /// </summary>
         private void btnHaveNotRead_Click(object sender, EventArgs e) {
-
+            if (btnHaveNotRead.Text.StartsWith("√")) {
+                btnHaveNotRead.Enabled = false;
+                mHideSeen = false;
+                listViewController.RefreshHide(mHideSeen);
+                btnHaveNotRead.Text = "仅查看未批改";
+                btnHaveNotRead.Enabled = true;
+            } else {
+                btnHaveNotRead.Enabled = false;
+                mHideSeen = true;
+                listViewController.RefreshHide(mHideSeen);
+                btnHaveNotRead.Text = "√ 仅查看未批改";
+                btnHaveNotRead.Enabled = true;
+            }
         }
         /// <summary>
         /// 双击listview中的item
@@ -90,7 +112,9 @@ namespace EmailHomeworkSystem {
                 if (item.ImageIndex == 0) { //如果是文件夹
                     if (item.SubItems[4].Text.StartsWith("group:\\")) {
                         //分类展示
-                        listViewController.Show(folderController.GoChildPath(item.SubItems[4].Text.Replace(folderController.GetFullPath() + "\\", "")));
+                        string childpath = folderController.GoChildPath(item.SubItems[4].Text.Replace(folderController.GetFullPath() + "\\", ""));
+                        LabelPath.Text = childpath;
+                        listViewController.Show(childpath, mHideSeen);
                     } else if (item.SubItems[4].Text.StartsWith("project:\\")) {
                         //打开项目
                         FormCodeView formCV = new FormCodeView(this);
@@ -99,7 +123,9 @@ namespace EmailHomeworkSystem {
                         formCV.Show(this);
                     } else {
                         //仅仅打开目录
-                        listViewController.Import(folderController.GoChildPath(item.Text));
+                        string childpath = folderController.GoChildPath(item.Text);
+                        LabelPath.Text = childpath;
+                        listViewController.Import(childpath);
                     }
                 } else { //如果是文件
                     FormCodeView formCV = new FormCodeView(this);
@@ -133,16 +159,16 @@ namespace EmailHomeworkSystem {
                 btnFolderBack.BackgroundImage.Dispose();
             btnFolderBack.BackgroundImage = Resources.folderback;
         }
-        private void btnFolderForward_MouseMove(object sender, MouseEventArgs e) {
-            if (btnFolderForward.BackgroundImage != null)
-                btnFolderForward.BackgroundImage.Dispose();
-            btnFolderForward.BackgroundImage = Resources.folderforward_press;
-        }
-        private void btnFolderForward_MouseLeave(object sender, EventArgs e) {
-            if (btnFolderForward.BackgroundImage != null)
-                btnFolderForward.BackgroundImage.Dispose();
-            btnFolderForward.BackgroundImage = Resources.folderforward;
-        }
+        //private void btnFolderForward_MouseMove(object sender, MouseEventArgs e) {
+        //    if (btnFolderForward.BackgroundImage != null)
+        //        btnFolderForward.BackgroundImage.Dispose();
+        //    btnFolderForward.BackgroundImage = Resources.folderforward_press;
+        //}
+        //private void btnFolderForward_MouseLeave(object sender, EventArgs e) {
+        //    if (btnFolderForward.BackgroundImage != null)
+        //        btnFolderForward.BackgroundImage.Dispose();
+        //    btnFolderForward.BackgroundImage = Resources.folderforward;
+        //}
         private void btnFolderRefresh_MouseMove(object sender, MouseEventArgs e) {
             if (btnFolderRefresh.BackgroundImage != null)
                 btnFolderRefresh.BackgroundImage.Dispose();
@@ -153,6 +179,5 @@ namespace EmailHomeworkSystem {
                 btnFolderRefresh.BackgroundImage.Dispose();
             btnFolderRefresh.BackgroundImage = Resources.folderrefresh;
         }
-
     }
 }

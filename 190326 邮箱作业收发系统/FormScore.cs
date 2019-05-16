@@ -1,5 +1,6 @@
 ﻿using EmailHomeworkSystem.Controller;
 using EmailHomeworkSystem.Database;
+using EmailHomeworkSystem.Properties;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -19,6 +20,13 @@ namespace EmailHomeworkSystem {
         public FormScore(FormCodeView formCV) {
             mFormCodeView = formCV;
             InitializeComponent();
+        }
+
+        /// <summary>
+        /// 初始载入事件
+        /// </summary>
+        private void FormScore_Load(object sender, EventArgs e) {
+            Icon = Resources.homework;
         }
 
         /// <summary>
@@ -56,5 +64,6 @@ namespace EmailHomeworkSystem {
             Score.Text = mHmwk.Score >= 0 ? mHmwk.Score.ToString() : "暂未打分";
             TextScore.Text = "";
         }
+
     }
 }

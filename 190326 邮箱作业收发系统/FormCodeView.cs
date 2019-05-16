@@ -1,5 +1,6 @@
 ﻿using CppRunningHelper;
 using EmailHomeworkSystem.Controller;
+using EmailHomeworkSystem.Properties;
 using ICSharpCode.TextEditor.Document;
 using System;
 using System.Collections.Generic;
@@ -24,6 +25,10 @@ namespace EmailHomeworkSystem {
         }
 
         //----------------------------初始化操作----------------------------
+        
+        private void FormCodeView_Load(object sender, EventArgs e) {
+            Icon = Resources.homework;
+        }
 
         private void InitializeController() {
             folderController = new FolderController();
@@ -186,10 +191,6 @@ namespace EmailHomeworkSystem {
             for (int i = 0; i < spaceNum; i++)
                 sb.Append(" ");
             return sb.ToString();
-        }
-
-        private void FormCodeView_Load(object sender, EventArgs e) {
-
         }
     }
 

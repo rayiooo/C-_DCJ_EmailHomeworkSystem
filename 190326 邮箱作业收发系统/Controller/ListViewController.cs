@@ -92,12 +92,25 @@ namespace EmailHomeworkSystem.Controller {
             lv.EndUpdate();
         }
 
+        /// <summary>
+        /// 刷新显示
+        /// </summary>
         public void Refresh() {
             if (mPath is null) {
                 throw new ArgumentNullException("ListViewController.Refresh: mPath is null.");
             }
             Log.D("ListViewController.Refresh: start.");
             this.Show(mPath, mHideSeen);
+        }
+        /// <summary>
+        /// 将是否隐藏已批阅反转刷新
+        /// </summary>
+        public void RefreshHide(bool hideSeen) {
+            if (mPath is null) {
+                throw new ArgumentNullException("ListViewController.Refresh: mPath is null.");
+            }
+            Log.D("ListViewController.RefreshAntiHide: start.");
+            this.Show(mPath, hideSeen);
         }
 
         /// <summary>
@@ -179,7 +192,7 @@ namespace EmailHomeworkSystem.Controller {
         /// <param name="hideSeen">TODO</param>
         public void Show(string path = "group:\\sname", bool hideSeen = false) {
             if (!path.StartsWith("group:\\")) {
-                Log.W("路径格式错误！必须以“group:\\”格式开头。");
+                Log.F("路径格式错误！必须以“group:\\”格式开头。");
                 return;
             }
             mPath = path;
@@ -197,6 +210,19 @@ namespace EmailHomeworkSystem.Controller {
             if (menu[0] == "sname") {
                 if (menu.Length == 1) {
                     foreach(string str in stuDict.Keys) { //按学生分类
+                        //判断是否已批阅全部
+                        if (mHideSeen) {
+                            bool seenAll = true;
+                            foreach (var h in stuDict[str].Values) {
+                                if (h.Score < 0) {
+                                    seenAll = false;
+                                    break;
+                                }
+                            }
+                            if (seenAll)
+                                continue;
+                        }
+                        //添加item
                         var item = new ListViewItem(new string[] {
                             str, str, "", "",
                             path + "\\" + str
@@ -205,6 +231,8 @@ namespace EmailHomeworkSystem.Controller {
                     }
                 } else if (menu.Length == 2) {
                     foreach(Hmwk h in stuDict[menu[1]].Values) { //按学生分类二级目录
+                        if (mHideSeen && h.Score >= 0)
+                            continue; //隐藏已批阅
                         var item = new ListViewItem(new string[] {
                             h.Hno, h.Sname, h.Hno, h.Score < 0 ? "" : h.Score.ToString(),
                             "project:\\" + h.Dir.FullName
@@ -215,6 +243,19 @@ namespace EmailHomeworkSystem.Controller {
             } else if (menu[0] == "hno") {
                 if (menu.Length == 1) { //按作业号分类
                     foreach (string str in hmwkDict.Keys) {
+                        //判断是否已批阅全部
+                        if (mHideSeen) {
+                            bool seenAll = true;
+                            foreach (var h in hmwkDict[str].Values) {
+                                if (h.Score < 0) {
+                                    seenAll = false;
+                                    break;
+                                }
+                            }
+                            if (seenAll)
+                                continue;
+                        }
+                        //添加item
                         var item = new ListViewItem(new string[] {
                             str, "", str, "",
                             path + "\\" + str
@@ -223,6 +264,8 @@ namespace EmailHomeworkSystem.Controller {
                     }
                 } else if (menu.Length == 2) {
                     foreach (Hmwk h in hmwkDict[menu[1]].Values) { //按作业号分类二级目录
+                        if (mHideSeen && h.Score >= 0)
+                            continue; //隐藏已批阅
                         var item = new ListViewItem(new string[] {
                             h.Sname, h.Sname, h.Hno, h.Score < 0 ? "" : h.Score.ToString(),
                             "project:\\" + h.Dir.FullName
