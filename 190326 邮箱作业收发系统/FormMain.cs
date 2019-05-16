@@ -41,8 +41,6 @@ namespace EmailHomeworkSystem {
             }
         }
 
-
-
         //***************************界面点击事件****************************
 
         /// <summary>
@@ -50,7 +48,7 @@ namespace EmailHomeworkSystem {
         /// </summary>
         private void btnFolderBack_MouseUp(object sender, MouseEventArgs e) {
             if (folderController.GetRoot().StartsWith("group:\\")) {
-                listViewController.Show(folderController.GoParentPath());
+                listViewController.Show(folderController.GoParentPath(), mHideSeen);
             } else {
                 listViewController.Import(folderController.GoParentPath());
             }
@@ -71,7 +69,7 @@ namespace EmailHomeworkSystem {
             btnStu.BackColor = SystemColors.Menu;
             btnHmwk.BackColor = SystemColors.Window;
             folderController.SetRoot("group:\\sname");
-            listViewController.Show("group:\\sname");
+            listViewController.Show("group:\\sname", mHideSeen);
             LabelPath.Text = folderController.GetFullPath();
         }
         /// <summary>
@@ -81,7 +79,7 @@ namespace EmailHomeworkSystem {
             btnStu.BackColor = SystemColors.Window;
             btnHmwk.BackColor = SystemColors.Menu;
             folderController.SetRoot("group:\\hno");
-            listViewController.Show("group:\\hno");
+            listViewController.Show("group:\\hno", mHideSeen);
             LabelPath.Text = folderController.GetFullPath();
         }
         /// <summary>
@@ -159,16 +157,6 @@ namespace EmailHomeworkSystem {
                 btnFolderBack.BackgroundImage.Dispose();
             btnFolderBack.BackgroundImage = Resources.folderback;
         }
-        //private void btnFolderForward_MouseMove(object sender, MouseEventArgs e) {
-        //    if (btnFolderForward.BackgroundImage != null)
-        //        btnFolderForward.BackgroundImage.Dispose();
-        //    btnFolderForward.BackgroundImage = Resources.folderforward_press;
-        //}
-        //private void btnFolderForward_MouseLeave(object sender, EventArgs e) {
-        //    if (btnFolderForward.BackgroundImage != null)
-        //        btnFolderForward.BackgroundImage.Dispose();
-        //    btnFolderForward.BackgroundImage = Resources.folderforward;
-        //}
         private void btnFolderRefresh_MouseMove(object sender, MouseEventArgs e) {
             if (btnFolderRefresh.BackgroundImage != null)
                 btnFolderRefresh.BackgroundImage.Dispose();
@@ -178,6 +166,27 @@ namespace EmailHomeworkSystem {
             if (btnFolderRefresh.BackgroundImage != null)
                 btnFolderRefresh.BackgroundImage.Dispose();
             btnFolderRefresh.BackgroundImage = Resources.folderrefresh;
+        }
+
+        private void FormMain_Load(object sender, EventArgs e) {
+            if (Settings.Default.FormMax) {
+                this.WindowState = FormWindowState.Maximized;
+            }
+        }
+
+        private void FormMain_SizeChanged(object sender, EventArgs e) {
+            if (this.WindowState == FormWindowState.Maximized) {
+                Settings.Default.FormMax = true;
+                Settings.Default.Save();
+            } else if(this.WindowState == FormWindowState.Normal) {
+                Settings.Default.FormMax = false;
+                Settings.Default.Save();
+            }
+        }
+
+        private void btnOpenGrid_Click(object sender, EventArgs e) {
+            FormGrid fg = new FormGrid(this);
+            fg.Show(this);
         }
     }
 }

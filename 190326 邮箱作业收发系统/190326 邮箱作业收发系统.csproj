@@ -83,6 +83,12 @@
     <Compile Include="FormCodeView.Designer.cs">
       <DependentUpon>FormCodeView.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormGrid.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormGrid.Designer.cs">
+      <DependentUpon>FormGrid.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormScore.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -105,6 +111,9 @@
     <Compile Include="Database\SQLiteHelper.cs" />
     <EmbeddedResource Include="FormCodeView.resx">
       <DependentUpon>FormCodeView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormGrid.resx">
+      <DependentUpon>FormGrid.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormMain.resx">
       <DependentUpon>FormMain.cs</DependentUpon>

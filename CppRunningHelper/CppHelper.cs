@@ -111,8 +111,16 @@ namespace CppRunningHelper {
         public static bool Run(string folder) {
             FileInfo file = _GetExeFile(folder);
             if(file != null) {
+                //写bat文件
+                string path = file.DirectoryName + "\\run.bat";
                 string bat = file.Name + Environment.NewLine + "pause";
-                File.WriteAllText(file.DirectoryName + "\\run.bat", bat);
+                File.WriteAllText(path, bat, Encoding.GetEncoding(0));
+                //FileStream fs = new FileStream(path, FileMode.Create);
+                //StreamWriter sw = new StreamWriter(fs, Encoding.GetEncoding("gb2312"));
+                //sw.Write(bat);
+                //sw.Flush();
+                //sw.Close();
+                //执行bat文件
                 ProcessStartInfo start = new ProcessStartInfo() {
                     FileName = file.DirectoryName + "\\run.bat",
                     WorkingDirectory = file.DirectoryName,

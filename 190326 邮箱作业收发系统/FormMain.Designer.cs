@@ -43,6 +43,7 @@
             this.btnFolderRefresh = new System.Windows.Forms.PictureBox();
             this.btnFolderBack = new System.Windows.Forms.PictureBox();
             this.LabelPath = new System.Windows.Forms.Label();
+            this.btnOpenGrid = new System.Windows.Forms.Button();
             this.mainMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -117,6 +118,7 @@
             this.tableLayoutPanel3.BackColor = System.Drawing.SystemColors.Window;
             this.tableLayoutPanel3.ColumnCount = 1;
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel3.Controls.Add(this.btnOpenGrid, 0, 11);
             this.tableLayoutPanel3.Controls.Add(this.btnHaveNotRead, 0, 2);
             this.tableLayoutPanel3.Controls.Add(this.btnHmwk, 0, 1);
             this.tableLayoutPanel3.Controls.Add(this.btnStu, 0, 0);
@@ -284,6 +286,19 @@
             this.LabelPath.Text = "path:\\hello\\world";
             this.LabelPath.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // btnOpenGrid
+            // 
+            this.btnOpenGrid.BackColor = System.Drawing.SystemColors.Window;
+            this.btnOpenGrid.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnOpenGrid.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnOpenGrid.Location = new System.Drawing.Point(3, 586);
+            this.btnOpenGrid.Name = "btnOpenGrid";
+            this.btnOpenGrid.Size = new System.Drawing.Size(173, 53);
+            this.btnOpenGrid.TabIndex = 3;
+            this.btnOpenGrid.Text = "查看成绩表";
+            this.btnOpenGrid.UseVisualStyleBackColor = false;
+            this.btnOpenGrid.Click += new System.EventHandler(this.btnOpenGrid_Click);
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
@@ -294,6 +309,8 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FormMain";
             this.Text = "作业系统";
+            this.Load += new System.EventHandler(this.FormMain_Load);
+            this.SizeChanged += new System.EventHandler(this.FormMain_SizeChanged);
             this.mainMenuStrip.ResumeLayout(false);
             this.mainMenuStrip.PerformLayout();
             this.splitContainer1.Panel1.ResumeLayout(false);
@@ -330,6 +347,7 @@
         private System.Windows.Forms.Button btnStu;
         private System.Windows.Forms.Button btnHaveNotRead;
         private System.Windows.Forms.Label LabelPath;
+        private System.Windows.Forms.Button btnOpenGrid;
     }
 }
 

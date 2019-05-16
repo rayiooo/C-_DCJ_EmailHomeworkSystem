@@ -28,6 +28,9 @@ namespace EmailHomeworkSystem {
         
         private void FormCodeView_Load(object sender, EventArgs e) {
             Icon = Resources.homework;
+            if (Settings.Default.FormMax) {
+                this.WindowState = FormWindowState.Maximized;
+            }
         }
 
         private void InitializeController() {

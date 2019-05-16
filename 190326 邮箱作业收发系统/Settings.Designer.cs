@@ -34,5 +34,17 @@ namespace EmailHomeworkSystem {
                 this["FolderPath"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool FormMax {
+            get {
+                return ((bool)(this["FormMax"]));
+            }
+            set {
+                this["FormMax"] = value;
+            }
+        }
     }
 }
