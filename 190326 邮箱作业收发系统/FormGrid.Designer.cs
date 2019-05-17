@@ -49,7 +49,7 @@
             this.ClientSize = new System.Drawing.Size(1071, 670);
             this.Controls.Add(this.grid);
             this.Name = "FormGrid";
-            this.Text = "FormGrid";
+            this.Text = "成绩一览表";
             this.Load += new System.EventHandler(this.FormGrid_Load);
             ((System.ComponentModel.ISupportInitialize)(this.grid)).EndInit();
             this.ResumeLayout(false);

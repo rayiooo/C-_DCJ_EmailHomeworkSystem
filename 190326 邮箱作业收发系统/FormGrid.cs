@@ -1,8 +1,10 @@
 ﻿using EmailHomeworkSystem.BaseLib;
 using EmailHomeworkSystem.Controller;
+using EmailHomeworkSystem.Properties;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Reflection;
 using System.Windows.Forms;
 
@@ -75,18 +77,36 @@ namespace EmailHomeworkSystem {
                             row.Cells[colIndex[key2]].Value = score;
                         }
                     } else if (score == -1) {
-                        if (row.Cells[colIndex[key2]].Value != null)
+                        if (row.Cells[colIndex[key2]].Value == null)
                             row.Cells[colIndex[key2]].Value = "未批阅";
                     } else if (score == -2) {
-                        if (row.Cells[colIndex[key2]].Value != null)
+                        if (row.Cells[colIndex[key2]].Value == null) {
                             row.Cells[colIndex[key2]].Value = "没交作业";
+                            row.Cells[colIndex[key2]].Style.ForeColor = Color.Red;
+                        }
                     }
                 }
+                int sum = 0;
+                foreach (string hno in hmwkDict.Keys) {
+                    if (row.Cells[colIndex[hno]].Value == null) {
+                        row.Cells[colIndex[hno]].Value = "没交作业";
+                        row.Cells[colIndex[hno]].Style.ForeColor = Color.Red;
+                    }
+                    //为了良好的视觉效果，不显示未批阅
+                    else if (row.Cells[colIndex[hno]].Value.GetType() == typeof(string) && (string)row.Cells[colIndex[hno]].Value == "未批阅")
+                        row.Cells[colIndex[hno]].Value = null;
+                    else if (row.Cells[colIndex[hno]].Value.GetType() == typeof(int)) {
+                        sum += (int)row.Cells[colIndex[hno]].Value;
+                        row.Cells[colIndex[hno]].Value = row.Cells[colIndex[hno]].Value.ToString();
+                    }
+                }
+                row.Cells[colIndex["average"]].Value = double.Parse(((double)sum / hmwkDict.Keys.Count).ToString("0.00"));
             }
         }
         
         //--------------事件---------------
         private void FormGrid_Load(object sender, EventArgs e) {
+            Icon = Resources.homework;
             if (Settings.Default.FormMax) {
                 this.WindowState = FormWindowState.Maximized;
             }

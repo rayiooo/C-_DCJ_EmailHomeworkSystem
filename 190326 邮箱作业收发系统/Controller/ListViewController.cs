@@ -292,7 +292,7 @@ namespace EmailHomeworkSystem.Controller {
             this.Sname = sname;
             this.Hno = hno;
             this.Dir = dir;
-            this.Score = -2; //-1:未批改 -2:未交作业
+            this.Score = -1; //-1:未批改 -2:未交作业
             //this.Score = DBOptionHelper.GetScore(Sname, Hno);
         }
     }
