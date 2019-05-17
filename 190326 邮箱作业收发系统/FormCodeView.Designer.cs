@@ -138,9 +138,11 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1071, 670);
             this.Controls.Add(this.tableLayoutPanel3);
+            this.KeyPreview = true;
             this.Name = "FormCodeView";
             this.Text = "FormCodeView";
             this.Load += new System.EventHandler(this.FormCodeView_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FormCodeView_KeyDown);
             this.tableLayoutPanel3.ResumeLayout(false);
             this.tableLayoutPanel3.PerformLayout();
             this.toolStrip1.ResumeLayout(false);

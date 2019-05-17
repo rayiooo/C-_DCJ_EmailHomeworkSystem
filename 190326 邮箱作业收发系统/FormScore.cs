@@ -52,6 +52,17 @@ namespace EmailHomeworkSystem {
         }
 
         /// <summary>
+        /// ESC退出功能
+        /// </summary>
+        private void FormScore_KeyDown(object sender, KeyEventArgs e) {
+            if (e.KeyCode == Keys.Escape) {
+                this.Close();
+            } else if (e.KeyCode == Keys.Enter) {
+                btnSetScore_Click(sender, e);
+            }
+        }
+
+        /// <summary>
         /// 载入学生详情
         /// </summary>
         /// <param name="sname"></param>
@@ -64,6 +75,5 @@ namespace EmailHomeworkSystem {
             Score.Text = mHmwk.Score >= 0 ? mHmwk.Score.ToString() : "暂未打分";
             TextScore.Text = "";
         }
-
     }
 }

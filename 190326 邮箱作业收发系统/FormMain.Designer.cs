@@ -40,12 +40,12 @@
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.listView = new System.Windows.Forms.ListView();
             this.fileIconImageList64 = new System.Windows.Forms.ImageList(this.components);
+            this.fileIconImageList32 = new System.Windows.Forms.ImageList(this.components);
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.btnFolderRefresh = new System.Windows.Forms.PictureBox();
             this.btnFolderBack = new System.Windows.Forms.PictureBox();
             this.LabelPath = new System.Windows.Forms.Label();
             this.comboListViewView = new System.Windows.Forms.ComboBox();
-            this.fileIconImageList32 = new System.Windows.Forms.ImageList(this.components);
             this.label1 = new System.Windows.Forms.Label();
             this.mainMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -238,6 +238,18 @@
             this.fileIconImageList64.Images.SetKeyName(5, "icon_txt.png");
             this.fileIconImageList64.Images.SetKeyName(6, "icon_zip.png");
             // 
+            // fileIconImageList32
+            // 
+            this.fileIconImageList32.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("fileIconImageList32.ImageStream")));
+            this.fileIconImageList32.TransparentColor = System.Drawing.Color.Transparent;
+            this.fileIconImageList32.Images.SetKeyName(0, "folder.png");
+            this.fileIconImageList32.Images.SetKeyName(1, "icon_cpp.png");
+            this.fileIconImageList32.Images.SetKeyName(2, "icon_h.png");
+            this.fileIconImageList32.Images.SetKeyName(3, "icon_nani.png");
+            this.fileIconImageList32.Images.SetKeyName(4, "icon_rar.png");
+            this.fileIconImageList32.Images.SetKeyName(5, "icon_txt.png");
+            this.fileIconImageList32.Images.SetKeyName(6, "icon_zip.png");
+            // 
             // tableLayoutPanel2
             // 
             this.tableLayoutPanel2.ColumnCount = 4;
@@ -324,18 +336,6 @@
             this.comboListViewView.TabIndex = 9;
             this.comboListViewView.SelectedIndexChanged += new System.EventHandler(this.comboListViewView_SelectedIndexChanged);
             // 
-            // fileIconImageList32
-            // 
-            this.fileIconImageList32.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("fileIconImageList32.ImageStream")));
-            this.fileIconImageList32.TransparentColor = System.Drawing.Color.Transparent;
-            this.fileIconImageList32.Images.SetKeyName(0, "folder.png");
-            this.fileIconImageList32.Images.SetKeyName(1, "icon_cpp.png");
-            this.fileIconImageList32.Images.SetKeyName(2, "icon_h.png");
-            this.fileIconImageList32.Images.SetKeyName(3, "icon_nani.png");
-            this.fileIconImageList32.Images.SetKeyName(4, "icon_rar.png");
-            this.fileIconImageList32.Images.SetKeyName(5, "icon_txt.png");
-            this.fileIconImageList32.Images.SetKeyName(6, "icon_zip.png");
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -358,8 +358,8 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FormMain";
             this.Text = "作业系统";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormMain_FormClosing);
             this.Load += new System.EventHandler(this.FormMain_Load);
-            this.SizeChanged += new System.EventHandler(this.FormMain_SizeChanged);
             this.mainMenuStrip.ResumeLayout(false);
             this.mainMenuStrip.PerformLayout();
             this.splitContainer1.Panel1.ResumeLayout(false);

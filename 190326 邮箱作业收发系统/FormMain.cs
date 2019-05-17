@@ -4,6 +4,8 @@ using System.Windows.Forms;
 using EmailHomeworkSystem.Properties;
 using EmailHomeworkSystem.Database;
 using System.Drawing;
+using EmailHomeworkSystem.BaseLib;
+using System.IO;
 
 namespace EmailHomeworkSystem {
     public partial class FormMain : Form {
@@ -15,10 +17,10 @@ namespace EmailHomeworkSystem {
 
         public FormMain() {
             InitializeComponent();
+            InitializeLogSettings();
             InitializeController();
             InitializeSettings();
-            btnStu_Click(null, null);
-            comboListViewView.SelectedIndex = 1;
+            comboListViewView.SelectedIndex = Settings.Default.ComboIndex;
         }
 
         //**************************初始化******************************
@@ -32,13 +34,27 @@ namespace EmailHomeworkSystem {
             //treeViewController = new TreeViewController(this);
         }
         /// <summary>
+        /// 输出设置以便查看
+        /// </summary>
+        private void InitializeLogSettings() {
+            Log.I(string.Format("FormMain.InitializeLogSettings: FolderPath={0}", Settings.Default.FolderPath));
+            Log.I(string.Format("FormMain.InitializeLogSettings: FormMax={0}", Settings.Default.FormMax));
+            Log.I(string.Format("FormMain.InitializeLogSettings: ComboIndex={0}", Settings.Default.ComboIndex));
+        }
+        /// <summary>
         /// 初始化已保存的配置
         /// </summary>
         private void InitializeSettings() {
             if(Settings.Default.FolderPath != "") {
-                folderController.SetRoot(Settings.Default.FolderPath);
-                DBOptionHelper.Initialize(folderController.GetRoot());
-                listViewController.Import(folderController.GetFullPath());
+                try {
+                    DirectoryInfo dir = new DirectoryInfo(Settings.Default.FolderPath); //检查路径合法性
+                    folderController.SetRoot(Settings.Default.FolderPath);
+                    DBOptionHelper.Initialize(folderController.GetRoot());
+                    listViewController.Import(folderController.GetRoot());
+                    btnStu_Click(null, null);
+                } catch (Exception ex) {
+                    Log.E("FormMain.InitializeSettings: " + ex.Message);
+                }
             }
         }
 
@@ -173,6 +189,7 @@ namespace EmailHomeworkSystem {
                 listViewController.Import(folderController.GetFullPath());
                 Settings.Default.FolderPath = folderController.GetRoot();
                 Settings.Default.Save();
+                btnStu_Click(null, null);
             }
         }
 
@@ -205,14 +222,13 @@ namespace EmailHomeworkSystem {
             }
         }
 
-        private void FormMain_SizeChanged(object sender, EventArgs e) {
-            if (this.WindowState == FormWindowState.Maximized) {
-                Settings.Default.FormMax = true;
-                Settings.Default.Save();
-            } else if(this.WindowState == FormWindowState.Normal) {
-                Settings.Default.FormMax = false;
-                Settings.Default.Save();
-            }
+        /// <summary>
+        /// 关闭前
+        /// </summary>
+        private void FormMain_FormClosing(object sender, FormClosingEventArgs e) {
+            Settings.Default.FormMax = this.WindowState == FormWindowState.Maximized ? true : false;
+            Settings.Default.ComboIndex = comboListViewView.SelectedIndex;
+            Settings.Default.Save();
         }
     }
 }

@@ -11,11 +11,11 @@ namespace EmailHomeworkSystem.Controller {
         private bool mHaveSearchedChildAndGroup;
         private bool mHideSeen; //保存是否隐藏已批阅状态方便刷新
         private string mFolder;
-        private string mPath; //保存当前路径方便刷新
+        private string mPath;   //保存当前路径方便刷新
         private ListView lv;
-        public Dictionary<string, Dictionary<string, Hmwk>> hmwkDict; //存储按作业号分类的文件夹目录
-        public Dictionary<string, Dictionary<string, Hmwk>> stuDict; //存储按学生姓名分类的文件夹目录
-        public Dictionary<string, string> stuInfo; //学生sname-sno
+        public Dictionary<string, Dictionary<string, Hmwk>> hmwkDict;   //存储按作业号分类的文件夹目录
+        public Dictionary<string, Dictionary<string, Hmwk>> stuDict;    //存储按学生姓名分类的文件夹目录
+        public Dictionary<string, string> stuInfo;  //学生sname-sno
 
         public ListViewController(ListView lv) {
             this.lv = lv;
@@ -195,6 +195,7 @@ namespace EmailHomeworkSystem.Controller {
                 Log.F("路径格式错误！必须以“group:\\”格式开头。");
                 return;
             }
+            Log.D(string.Format("ListViewController.Show: path={0}, hideSeen={1}", path, hideSeen));
             mPath = path;
             mHideSeen = hideSeen;
             if (!mHaveSearchedChildAndGroup) {

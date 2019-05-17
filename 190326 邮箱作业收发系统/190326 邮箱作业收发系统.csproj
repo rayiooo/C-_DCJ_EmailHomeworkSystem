@@ -78,7 +78,6 @@
     <Compile Include="BaseLib\Log.cs" />
     <Compile Include="Controller\FolderController.cs" />
     <Compile Include="Controller\ListViewController.cs" />
-    <Compile Include="Controller\TreeViewController.cs" />
     <Compile Include="Database\DBOptionHelper.cs" />
     <Compile Include="FormCodeView.cs">
       <SubType>Form</SubType>

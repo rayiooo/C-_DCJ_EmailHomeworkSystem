@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Text;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace EmailHomeworkSystem {
@@ -93,15 +94,24 @@ namespace EmailHomeworkSystem {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void TSBtnRun_Click(object sender, EventArgs e) {
-            if (!CppHelper.Compile(folderController.GetRoot())) {
-                MessageBox.Show("编译失败！", "Warning");
-            }
-            if (!CppHelper.Run(folderController.GetRoot())) {
-                MessageBox.Show("运行失败！", "Warning");
-            }
-            //if (!CppHelper.Clean(fileinfo.Directory.FullName)) {
-            //    MessageBox.Show("编译文件清理失败！", "Warning");
-            //}
+            //多线程防止阻塞ui线程
+            new Thread(new ThreadStart(()=> {
+                Invoke(new Action(() => {
+                    this.TSBtnRun.Enabled = false;
+                }));
+                if (!CppHelper.Compile(folderController.GetRoot())) {
+                    MessageBox.Show("编译失败！", "Warning");
+                }
+                if (!CppHelper.Run(folderController.GetRoot())) {
+                    MessageBox.Show("运行失败！", "Warning");
+                }
+                //if (!CppHelper.Clean(fileinfo.Directory.FullName)) {
+                //    MessageBox.Show("编译文件清理失败！", "Warning");
+                //}
+                Invoke(new Action(() => {
+                    this.TSBtnRun.Enabled = true;
+                }));
+            })).Start();
         }
         /// <summary>
         /// 评分按钮
@@ -127,37 +137,16 @@ namespace EmailHomeworkSystem {
 
         private void textEditor_TextChanged(object sender, System.EventArgs e) {
             codeEditor.Document.FoldingManager.UpdateFoldings(null, null);
-            //if (textEditor.Text.Length <= oldJScodeLength) return;
-            //var Line = this.textEditor.ActiveTextAreaControl.Caret.Line;
-            //var offset = this.textEditor.ActiveTextAreaControl.Caret.Offset;
-            //if (offset == 0) return;
-            //var LineSegment = textEditor.ActiveTextAreaControl.TextArea.Document.GetLineSegment(Line);
-            //if (offset == LineSegment.Length) return;
-            //try {
-            //    var charT = textEditor.ActiveTextAreaControl.TextArea.Document.GetText(offset, 1);
-            //    var charE = "";
-            //    switch (charT) {
-            //        case "{":
-            //            charE = "}";
-            //            break;
-            //        case "(":
-            //            charE = ")";
-            //            break;
-            //        case "[":
-            //            charE = "]";
-            //            break;
-            //    }
-            //    if (!string.IsNullOrEmpty(charE)) {
-            //        textEditor.ActiveTextAreaControl.SelectionManager.RemoveSelectedText();
-            //        textEditor.ActiveTextAreaControl.Caret.Column = textEditor.ActiveTextAreaControl.Caret.Column + 1;
-            //        textEditor.ActiveTextAreaControl.TextArea.InsertChar(charE[0]);
-            //        textEditor.ActiveTextAreaControl.Caret.Column = textEditor.ActiveTextAreaControl.Caret.Column - 2;
-            //        this.textEditor.ActiveTextAreaControl.TextArea.ScrollToCaret();
-            //    }
-            //} catch (Exception) {
+        }
 
-
-            //}
+        /// <summary>
+        /// ESC退出功能
+        /// </summary>
+        private void FormCodeView_KeyDown(object sender, KeyEventArgs e) {
+            if (e.KeyCode == Keys.Escape) {
+                this.Close();
+                return;
+            }
         }
 
         //----------------------------格式化代码----------------------------

@@ -46,5 +46,17 @@ namespace EmailHomeworkSystem {
                 this["FormMax"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public int ComboIndex {
+            get {
+                return ((int)(this["ComboIndex"]));
+            }
+            set {
+                this["ComboIndex"] = value;
+            }
+        }
     }
 }
