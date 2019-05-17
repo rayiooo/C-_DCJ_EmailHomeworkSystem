@@ -27,12 +27,12 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormCodeView));
             this.fileIconImageList = new System.Windows.Forms.ImageList(this.components);
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
-            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.fileListView = new System.Windows.Forms.ListView();
             this.codeEditor = new ICSharpCode.TextEditor.TextEditorControl();
+            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.TSBtnSave = new System.Windows.Forms.ToolStripButton();
             this.TSBtnRun = new System.Windows.Forms.ToolStripButton();
             this.TSBtnSetScore = new System.Windows.Forms.ToolStripButton();
+            this.fileListView = new System.Windows.Forms.ListView();
             this.tableLayoutPanel3.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -66,6 +66,16 @@
             this.tableLayoutPanel3.Size = new System.Drawing.Size(1071, 670);
             this.tableLayoutPanel3.TabIndex = 3;
             // 
+            // codeEditor
+            // 
+            this.codeEditor.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.codeEditor.IsReadOnly = false;
+            this.codeEditor.Location = new System.Drawing.Point(181, 34);
+            this.codeEditor.Name = "codeEditor";
+            this.codeEditor.Size = new System.Drawing.Size(887, 633);
+            this.codeEditor.TabIndex = 8;
+            this.codeEditor.TextChanged += new System.EventHandler(this.textEditor_TextChanged);
+            // 
             // toolStrip1
             // 
             this.tableLayoutPanel3.SetColumnSpan(this.toolStrip1, 2);
@@ -77,31 +87,9 @@
             this.TSBtnSetScore});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(267, 31);
+            this.toolStrip1.Size = new System.Drawing.Size(228, 31);
             this.toolStrip1.TabIndex = 7;
             this.toolStrip1.Text = "toolStrip1";
-            // 
-            // fileListView
-            // 
-            this.fileListView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.fileListView.Location = new System.Drawing.Point(3, 34);
-            this.fileListView.Name = "fileListView";
-            this.fileListView.Size = new System.Drawing.Size(172, 633);
-            this.fileListView.SmallImageList = this.fileIconImageList;
-            this.fileListView.TabIndex = 4;
-            this.fileListView.UseCompatibleStateImageBehavior = false;
-            this.fileListView.View = System.Windows.Forms.View.SmallIcon;
-            this.fileListView.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.fileListView_MouseDoubleClick);
-            // 
-            // codeEditor
-            // 
-            this.codeEditor.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.codeEditor.IsReadOnly = false;
-            this.codeEditor.Location = new System.Drawing.Point(181, 34);
-            this.codeEditor.Name = "codeEditor";
-            this.codeEditor.Size = new System.Drawing.Size(887, 633);
-            this.codeEditor.TabIndex = 8;
-            this.codeEditor.TextChanged += new System.EventHandler(this.textEditor_TextChanged);
             // 
             // TSBtnSave
             // 
@@ -131,6 +119,18 @@
             this.TSBtnSetScore.Size = new System.Drawing.Size(73, 28);
             this.TSBtnSetScore.Text = "评分";
             this.TSBtnSetScore.Click += new System.EventHandler(this.TSBtnSetScore_Click);
+            // 
+            // fileListView
+            // 
+            this.fileListView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.fileListView.Location = new System.Drawing.Point(3, 34);
+            this.fileListView.Name = "fileListView";
+            this.fileListView.Size = new System.Drawing.Size(172, 633);
+            this.fileListView.SmallImageList = this.fileIconImageList;
+            this.fileListView.TabIndex = 4;
+            this.fileListView.UseCompatibleStateImageBehavior = false;
+            this.fileListView.View = System.Windows.Forms.View.SmallIcon;
+            this.fileListView.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.fileListView_MouseDoubleClick);
             // 
             // FormCodeView
             // 

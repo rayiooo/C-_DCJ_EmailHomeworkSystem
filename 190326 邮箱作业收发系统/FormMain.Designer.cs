@@ -33,17 +33,20 @@
             this.folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
+            this.btnOpenGrid = new System.Windows.Forms.Button();
             this.btnHaveNotRead = new System.Windows.Forms.Button();
             this.btnHmwk = new System.Windows.Forms.Button();
             this.btnStu = new System.Windows.Forms.Button();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.listView = new System.Windows.Forms.ListView();
-            this.fileIconImageList = new System.Windows.Forms.ImageList(this.components);
+            this.fileIconImageList64 = new System.Windows.Forms.ImageList(this.components);
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.btnFolderRefresh = new System.Windows.Forms.PictureBox();
             this.btnFolderBack = new System.Windows.Forms.PictureBox();
             this.LabelPath = new System.Windows.Forms.Label();
-            this.btnOpenGrid = new System.Windows.Forms.Button();
+            this.comboListViewView = new System.Windows.Forms.ComboBox();
+            this.fileIconImageList32 = new System.Windows.Forms.ImageList(this.components);
+            this.label1 = new System.Windows.Forms.Label();
             this.mainMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -141,6 +144,19 @@
             this.tableLayoutPanel3.Size = new System.Drawing.Size(179, 642);
             this.tableLayoutPanel3.TabIndex = 0;
             // 
+            // btnOpenGrid
+            // 
+            this.btnOpenGrid.BackColor = System.Drawing.SystemColors.Window;
+            this.btnOpenGrid.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnOpenGrid.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnOpenGrid.Location = new System.Drawing.Point(3, 586);
+            this.btnOpenGrid.Name = "btnOpenGrid";
+            this.btnOpenGrid.Size = new System.Drawing.Size(173, 53);
+            this.btnOpenGrid.TabIndex = 3;
+            this.btnOpenGrid.Text = "查看成绩表";
+            this.btnOpenGrid.UseVisualStyleBackColor = false;
+            this.btnOpenGrid.Click += new System.EventHandler(this.btnOpenGrid_Click);
+            // 
             // btnHaveNotRead
             // 
             this.btnHaveNotRead.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -198,33 +214,33 @@
             // 
             this.listView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listView.Font = new System.Drawing.Font("宋体", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.listView.LargeImageList = this.fileIconImageList;
+            this.listView.LargeImageList = this.fileIconImageList64;
             this.listView.Location = new System.Drawing.Point(0, 53);
             this.listView.Margin = new System.Windows.Forms.Padding(0);
             this.listView.MultiSelect = false;
             this.listView.Name = "listView";
             this.listView.Size = new System.Drawing.Size(888, 589);
-            this.listView.SmallImageList = this.fileIconImageList;
+            this.listView.SmallImageList = this.fileIconImageList32;
             this.listView.TabIndex = 25;
             this.listView.UseCompatibleStateImageBehavior = false;
             this.listView.View = System.Windows.Forms.View.Details;
             this.listView.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listView_MouseDoubleClick);
             // 
-            // fileIconImageList
+            // fileIconImageList64
             // 
-            this.fileIconImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("fileIconImageList.ImageStream")));
-            this.fileIconImageList.TransparentColor = System.Drawing.Color.Transparent;
-            this.fileIconImageList.Images.SetKeyName(0, "folder.png");
-            this.fileIconImageList.Images.SetKeyName(1, "icon_cpp.png");
-            this.fileIconImageList.Images.SetKeyName(2, "icon_h.png");
-            this.fileIconImageList.Images.SetKeyName(3, "icon_nani.png");
-            this.fileIconImageList.Images.SetKeyName(4, "icon_rar.png");
-            this.fileIconImageList.Images.SetKeyName(5, "icon_txt.png");
-            this.fileIconImageList.Images.SetKeyName(6, "icon_zip.png");
+            this.fileIconImageList64.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("fileIconImageList64.ImageStream")));
+            this.fileIconImageList64.TransparentColor = System.Drawing.Color.Transparent;
+            this.fileIconImageList64.Images.SetKeyName(0, "folder.png");
+            this.fileIconImageList64.Images.SetKeyName(1, "icon_cpp.png");
+            this.fileIconImageList64.Images.SetKeyName(2, "icon_h.png");
+            this.fileIconImageList64.Images.SetKeyName(3, "icon_nani.png");
+            this.fileIconImageList64.Images.SetKeyName(4, "icon_rar.png");
+            this.fileIconImageList64.Images.SetKeyName(5, "icon_txt.png");
+            this.fileIconImageList64.Images.SetKeyName(6, "icon_zip.png");
             // 
             // tableLayoutPanel2
             // 
-            this.tableLayoutPanel2.ColumnCount = 5;
+            this.tableLayoutPanel2.ColumnCount = 4;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
@@ -233,6 +249,8 @@
             this.tableLayoutPanel2.Controls.Add(this.btnFolderRefresh, 1, 0);
             this.tableLayoutPanel2.Controls.Add(this.btnFolderBack, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.LabelPath, 2, 0);
+            this.tableLayoutPanel2.Controls.Add(this.comboListViewView, 4, 0);
+            this.tableLayoutPanel2.Controls.Add(this.label1, 3, 0);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel2.GrowStyle = System.Windows.Forms.TableLayoutPanelGrowStyle.AddColumns;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 0);
@@ -278,26 +296,57 @@
             // LabelPath
             // 
             this.LabelPath.AutoSize = true;
+            this.LabelPath.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.LabelPath.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.LabelPath.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.LabelPath.Font = new System.Drawing.Font("宋体", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.LabelPath.Location = new System.Drawing.Point(97, 0);
             this.LabelPath.Name = "LabelPath";
-            this.LabelPath.Size = new System.Drawing.Size(788, 53);
+            this.LabelPath.Size = new System.Drawing.Size(552, 53);
             this.LabelPath.TabIndex = 8;
             this.LabelPath.Text = "path:\\hello\\world";
             this.LabelPath.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // btnOpenGrid
+            // comboListViewView
             // 
-            this.btnOpenGrid.BackColor = System.Drawing.SystemColors.Window;
-            this.btnOpenGrid.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnOpenGrid.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnOpenGrid.Location = new System.Drawing.Point(3, 586);
-            this.btnOpenGrid.Name = "btnOpenGrid";
-            this.btnOpenGrid.Size = new System.Drawing.Size(173, 53);
-            this.btnOpenGrid.TabIndex = 3;
-            this.btnOpenGrid.Text = "查看成绩表";
-            this.btnOpenGrid.UseVisualStyleBackColor = false;
-            this.btnOpenGrid.Click += new System.EventHandler(this.btnOpenGrid_Click);
+            this.comboListViewView.Font = new System.Drawing.Font("宋体", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.comboListViewView.FormattingEnabled = true;
+            this.comboListViewView.Items.AddRange(new object[] {
+            "大图标",
+            "详细信息",
+            "小图标",
+            "列表",
+            "Tile"});
+            this.comboListViewView.Location = new System.Drawing.Point(754, 14);
+            this.comboListViewView.Margin = new System.Windows.Forms.Padding(14);
+            this.comboListViewView.Name = "comboListViewView";
+            this.comboListViewView.Size = new System.Drawing.Size(120, 26);
+            this.comboListViewView.TabIndex = 9;
+            this.comboListViewView.SelectedIndexChanged += new System.EventHandler(this.comboListViewView_SelectedIndexChanged);
+            // 
+            // fileIconImageList32
+            // 
+            this.fileIconImageList32.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("fileIconImageList32.ImageStream")));
+            this.fileIconImageList32.TransparentColor = System.Drawing.Color.Transparent;
+            this.fileIconImageList32.Images.SetKeyName(0, "folder.png");
+            this.fileIconImageList32.Images.SetKeyName(1, "icon_cpp.png");
+            this.fileIconImageList32.Images.SetKeyName(2, "icon_h.png");
+            this.fileIconImageList32.Images.SetKeyName(3, "icon_nani.png");
+            this.fileIconImageList32.Images.SetKeyName(4, "icon_rar.png");
+            this.fileIconImageList32.Images.SetKeyName(5, "icon_txt.png");
+            this.fileIconImageList32.Images.SetKeyName(6, "icon_zip.png");
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label1.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label1.Location = new System.Drawing.Point(655, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(82, 53);
+            this.label1.TabIndex = 10;
+            this.label1.Text = "图标样式：";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // FormMain
             // 
@@ -336,7 +385,7 @@
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog;
         private System.Windows.Forms.ToolStripMenuItem 导入ToolStripMenuItem;
         private System.Windows.Forms.SplitContainer splitContainer1;
-        public System.Windows.Forms.ImageList fileIconImageList;
+        public System.Windows.Forms.ImageList fileIconImageList64;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         public System.Windows.Forms.ListView listView;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
@@ -348,6 +397,9 @@
         private System.Windows.Forms.Button btnHaveNotRead;
         private System.Windows.Forms.Label LabelPath;
         private System.Windows.Forms.Button btnOpenGrid;
+        private System.Windows.Forms.ComboBox comboListViewView;
+        public System.Windows.Forms.ImageList fileIconImageList32;
+        private System.Windows.Forms.Label label1;
     }
 }
 

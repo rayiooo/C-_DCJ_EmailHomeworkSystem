@@ -18,6 +18,7 @@ namespace EmailHomeworkSystem {
             InitializeController();
             InitializeSettings();
             btnStu_Click(null, null);
+            comboListViewView.SelectedIndex = 1;
         }
 
         //**************************初始化******************************
@@ -98,6 +99,36 @@ namespace EmailHomeworkSystem {
                 listViewController.RefreshHide(mHideSeen);
                 btnHaveNotRead.Text = "√ 仅查看未批改";
                 btnHaveNotRead.Enabled = true;
+            }
+        }
+        /// <summary>
+        /// 查看成绩表
+        /// </summary>
+        private void btnOpenGrid_Click(object sender, EventArgs e) {
+            FormGrid fg = new FormGrid(this);
+            fg.Show(this);
+        }
+        /// <summary>
+        /// 更改listView的View样式
+        /// </summary>
+        private void comboListViewView_SelectedIndexChanged(object sender, EventArgs e) {
+            int index = comboListViewView.SelectedIndex;
+            switch (index) {
+                case 0:
+                    listView.View = View.LargeIcon;
+                    break;
+                case 1:
+                    listView.View = View.Details;
+                    break;
+                case 2:
+                    listView.View = View.SmallIcon;
+                    break;
+                case 3:
+                    listView.View = View.List;
+                    break;
+                case 4:
+                    listView.View = View.Tile;
+                    break;
             }
         }
         /// <summary>
@@ -182,11 +213,6 @@ namespace EmailHomeworkSystem {
                 Settings.Default.FormMax = false;
                 Settings.Default.Save();
             }
-        }
-
-        private void btnOpenGrid_Click(object sender, EventArgs e) {
-            FormGrid fg = new FormGrid(this);
-            fg.Show(this);
         }
     }
 }

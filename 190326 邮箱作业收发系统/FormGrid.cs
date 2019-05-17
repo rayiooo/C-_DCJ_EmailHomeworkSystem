@@ -1,8 +1,6 @@
-﻿using EmailHomeworkSystem.BaseLib;
-using EmailHomeworkSystem.Controller;
+﻿using EmailHomeworkSystem.Controller;
 using EmailHomeworkSystem.Properties;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Reflection;
