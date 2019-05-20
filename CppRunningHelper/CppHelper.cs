@@ -67,7 +67,7 @@ namespace CppRunningHelper {
                 DateTime t = exe.LastWriteTime;
                 bool isNew = true;
                 foreach (FileInfo file in new DirectoryInfo(folder).GetFiles()) {
-                    if(file.Name.EndsWith(".cpp") || file.Name.EndsWith(".h")) {
+                    if(file.Name.EndsWith(".cpp") /*|| file.Name.EndsWith(".h")*/) {
                         DateTime t2 = file.LastWriteTime;
                         if(t2 > t) {
                             isNew = false;
@@ -86,7 +86,7 @@ namespace CppRunningHelper {
                 DirectoryInfo info = new DirectoryInfo(folder);
                 List<string> files = new List<string>();
                 foreach (FileInfo file in info.GetFiles()) {
-                    if (file.Name.EndsWith(".cpp")) {
+                    if (file.Name.EndsWith(".cpp") /*|| file.Name.EndsWith(".h")*/) {
                         files.Add(file.Name);
                     }
                 }
