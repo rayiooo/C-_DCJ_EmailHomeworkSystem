@@ -4,7 +4,6 @@ using EmailHomeworkSystem.Properties;
 using ICSharpCode.TextEditor.Document;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.IO;
 using System.Text;
 using System.Threading;
@@ -96,9 +95,11 @@ namespace EmailHomeworkSystem {
         private void TSBtnRun_Click(object sender, EventArgs e) {
             //多线程防止阻塞ui线程
             new Thread(new ThreadStart(()=> {
-                Invoke(new Action(() => {
-                    this.TSBtnRun.Enabled = false;
-                }));
+                if(!this.Disposing && !this.IsDisposed && this.InvokeRequired) {
+                    Invoke(new Action(() => {
+                        this.TSBtnRun.Enabled = false;
+                    }));
+                }
                 if (!CppHelper.Compile(folderController.GetRoot())) {
                     MessageBox.Show("编译失败！", "Warning");
                 }
@@ -108,9 +109,11 @@ namespace EmailHomeworkSystem {
                 //if (!CppHelper.Clean(fileinfo.Directory.FullName)) {
                 //    MessageBox.Show("编译文件清理失败！", "Warning");
                 //}
-                Invoke(new Action(() => {
-                    this.TSBtnRun.Enabled = true;
-                }));
+                if (!this.Disposing && !this.IsDisposed && this.InvokeRequired) {
+                    Invoke(new Action(() => {
+                        this.TSBtnRun.Enabled = true;
+                    }));
+                }
             })).Start();
         }
         /// <summary>

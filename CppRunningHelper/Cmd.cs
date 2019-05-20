@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
+using System.Text;
 
 namespace CppRunningHelper {
     public class Cmd {
 
         public static void CL(string folder, string arg) {
             string bat = "cl" + arg + Environment.NewLine + "pause";
-            File.WriteAllText(folder + "\\run.bat", bat);
+            File.WriteAllText(folder + "\\run.bat", bat, Encoding.Default);
             ProcessStartInfo start = new ProcessStartInfo() {
                 FileName = "run.bat",
                 WorkingDirectory = folder,
